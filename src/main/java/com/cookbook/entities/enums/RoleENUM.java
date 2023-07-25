@@ -1,5 +1,5 @@
 package com.cookbook.entities.enums;
 
-public enum RoleENUM {ADMIN, TEACHER, PARENT, STUDENT}
+public enum RoleENUM {ADMIN_USER, COOK_USER, REGULAR_USER}
 
 
