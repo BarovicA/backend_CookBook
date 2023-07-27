@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Ingridient {
 
 	@Id
@@ -73,8 +75,7 @@ public class Ingridient {
 	private List<IngridientAllergen> ingridientAllergen = new ArrayList<>();
 	
 	
-	public Ingridient() {
-	}
+	
 
 
 	public Long getId() {
@@ -194,6 +195,85 @@ public class Ingridient {
 
 	public void setIngridientAllergen(List<IngridientAllergen> ingridientAllergen) {
 		this.ingridientAllergen = ingridientAllergen;
+	}
+
+
+	public Ingridient(Long id,
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Serving size must be included.") String servingSize,
+			@NotNull(message = "Calories must be included.") Integer calories,
+			@NotNull(message = "Carbs must be included.") Integer carbs,
+			@NotNull(message = "Sugars must be included.") Integer sugars,
+			@NotNull(message = "Fats must be included.") Integer fats,
+			@NotNull(message = "Saturated fats must be included.") Integer saturatedFats,
+			@NotNull(message = "Proteins must be included.") Integer proteins, Boolean deleted, Integer version,
+			List<IngridientRecipe> ingridientRecipe, List<IngridientAllergen> ingridientAllergen) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.servingSize = servingSize;
+		this.calories = calories;
+		this.carbs = carbs;
+		this.sugars = sugars;
+		this.fats = fats;
+		this.saturatedFats = saturatedFats;
+		this.proteins = proteins;
+		this.deleted = deleted;
+		this.version = version;
+		this.ingridientRecipe = ingridientRecipe;
+		this.ingridientAllergen = ingridientAllergen;
+	}
+	
+
+
+	public Ingridient(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Serving size must be included.") String servingSize,
+			@NotNull(message = "Calories must be included.") Integer calories,
+			@NotNull(message = "Carbs must be included.") Integer carbs,
+			@NotNull(message = "Sugars must be included.") Integer sugars,
+			@NotNull(message = "Fats must be included.") Integer fats,
+			@NotNull(message = "Saturated fats must be included.") Integer saturatedFats,
+			@NotNull(message = "Proteins must be included.") Integer proteins, Boolean deleted, Integer version,
+			List<IngridientRecipe> ingridientRecipe, List<IngridientAllergen> ingridientAllergen) {
+		super();
+		this.name = name;
+		this.servingSize = servingSize;
+		this.calories = calories;
+		this.carbs = carbs;
+		this.sugars = sugars;
+		this.fats = fats;
+		this.saturatedFats = saturatedFats;
+		this.proteins = proteins;
+		this.deleted = deleted;
+		this.version = version;
+		this.ingridientRecipe = ingridientRecipe;
+		this.ingridientAllergen = ingridientAllergen;
+	}
+
+	public Ingridient(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Serving size must be included.") String servingSize,
+			@NotNull(message = "Calories must be included.") Integer calories,
+			@NotNull(message = "Carbs must be included.") Integer carbs,
+			@NotNull(message = "Sugars must be included.") Integer sugars,
+			@NotNull(message = "Fats must be included.") Integer fats,
+			@NotNull(message = "Saturated fats must be included.") Integer saturatedFats,
+			@NotNull(message = "Proteins must be included.") Integer proteins) {
+		super();
+		this.name = name;
+		this.servingSize = servingSize;
+		this.calories = calories;
+		this.carbs = carbs;
+		this.sugars = sugars;
+		this.fats = fats;
+		this.saturatedFats = saturatedFats;
+		this.proteins = proteins;
+	}
+
+
+	public Ingridient() {
+		super();
 	}
 	
 	

@@ -41,13 +41,13 @@ public abstract class User {
 	@Size(min=2,max = 30, message= "Lastname must be beetwen {min} and {max} characters long.")
 	private String lastName;
 	
-	@JsonIgnore
+	
 	@Column
 	@NotNull(message = "Username must be included.")
 	@Size(min=5, max = 20, message= "Username must be beetwen {min} and {max} characters long.")
 	private String username;
 	
-	@JsonIgnore
+	
 	@Column
 	@NotNull(message = "Password must be included.")
 	@Pattern(regexp = "^(?=.[0-9])(?=.[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number")
@@ -58,16 +58,48 @@ public abstract class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
 	
-	@JsonIgnore
-	@Column
-	protected Boolean deleted;
 	
-	@JsonIgnore
-	@Version
-	private Integer version;
+
 
 	public User() {
 	}
+	
+	
+
+	public User(
+			@NotNull(message = "Firstname must be included.") @Size(min = 2, max = 30, message = "Firstname must be beetwen {min} and {max} characters long.") String firstName,
+			@NotNull(message = "Lastname must be included.") @Size(min = 2, max = 30, message = "Lastname must be beetwen {min} and {max} characters long.") String lastName,
+			@NotNull(message = "Username must be included.") @Size(min = 5, max = 20, message = "Username must be beetwen {min} and {max} characters long.") String username,
+			@NotNull(message = "Password must be included.") @Pattern(regexp = "^(?=.[0-9])(?=.[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number") @Size(min = 6, max = 30, message = "Password must be beetwen {min} and {max} characters long.") String password,
+			List<UserRole> userRoles) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.userRoles = userRoles;
+		
+	}
+
+
+
+	public User(Long id,
+			@NotNull(message = "Firstname must be included.") @Size(min = 2, max = 30, message = "Firstname must be beetwen {min} and {max} characters long.") String firstName,
+			@NotNull(message = "Lastname must be included.") @Size(min = 2, max = 30, message = "Lastname must be beetwen {min} and {max} characters long.") String lastName,
+			@NotNull(message = "Username must be included.") @Size(min = 5, max = 20, message = "Username must be beetwen {min} and {max} characters long.") String username,
+			@NotNull(message = "Password must be included.") @Pattern(regexp = "^(?=.[0-9])(?=.[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number") @Size(min = 6, max = 30, message = "Password must be beetwen {min} and {max} characters long.") String password,
+			List<UserRole> userRoles, Boolean deleted, Integer version) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.userRoles = userRoles;
+		
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -117,20 +149,11 @@ public abstract class User {
 		this.userRoles = userRoles;
 	}
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
+	
 
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
+	
+	
 
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
+	
 	
 }
