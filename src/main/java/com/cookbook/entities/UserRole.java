@@ -1,9 +1,6 @@
 package com.cookbook.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,10 +23,6 @@ public class UserRole {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "role")
     private Role role;
-	
-	@Column
-	@JsonIgnore
-	private Boolean deleted;
 
 	public UserRole() {
 	}
@@ -58,15 +51,6 @@ public class UserRole {
 		this.role = role;
 	}
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	
 	
 	
 }
