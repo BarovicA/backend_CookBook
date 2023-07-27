@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -25,9 +27,12 @@ public class Allergen {
 	private Long id;
 	
 	@Column
+	@NotNull(message = "Name must be included.")
+	@Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
 	private String name;
 	
 	@Column
+	@NotNull(message = "Name must be included.")
 	private String icon;
 	
 

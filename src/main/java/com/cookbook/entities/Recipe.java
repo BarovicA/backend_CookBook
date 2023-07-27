@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Recipe {
@@ -25,18 +27,25 @@ public class Recipe {
 	private Long id;
 	
 	@Column
+	@NotNull(message = "Name must be included.")
+	@Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
 	private String name;
 	
 	@Column
+	@NotNull(message = "Description must be included.")
+	@Size(min=2,max = 500, message= "Description must be beetwen {min} and {max} characters long.")
 	private String decription;
 	
 	@Column
+	@NotNull(message = "Steps must be included.")
 	private String steps;
 	
 	@Column
+	@NotNull(message = "Time to prepare must be included.")
 	private Integer timeToPrepare;
 	
 	@Column
+	@NotNull(message = "Expected yield must be included.")
 	private String expectedYield;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
