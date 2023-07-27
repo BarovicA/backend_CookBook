@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Ingridient {
@@ -23,27 +25,36 @@ public class Ingridient {
 	private Long id;
 	
 	@Column
+	@NotNull(message = "Name must be included.")
+	@Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
 	private String name;
 	
 	@Column(name = "serving_fats")
+	@NotNull(message = "Serving size must be included.")
 	private String servingSize;
 	
 	@Column
+	@NotNull(message = "Calories must be included.")
 	private Integer calories;
 	
 	@Column
+	@NotNull(message = "Carbs must be included.")
 	private Integer carbs;
 	
 	@Column
+	@NotNull(message = "Sugars must be included.")
 	private Integer sugars;
 	
 	@Column
+	@NotNull(message = "Fats must be included.")
 	private Integer fats;
 	
 	@Column(name = "saturated_fats")
+	@NotNull(message = "Saturated fats must be included.")
 	private Integer saturatedFats;
 	
 	@Column
+	@NotNull(message = "Proteins must be included.")
 	private Integer proteins;
 	
 	@Column
