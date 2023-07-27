@@ -13,25 +13,27 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class UserRole {
-	
+public class AllergenRegularUser {
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user")
-    private User user;
-
+	@JoinColumn(name = "allergen")
+	private Allergen allergen;
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "role")
-    private Role role;
+	@JoinColumn(name = "regUser")
+	private RegularUser regUser;
 	
 	@Column
 	@JsonIgnore
 	private Boolean deleted;
 
-	public UserRole() {
+	public AllergenRegularUser() {
 	}
 
 	public Long getId() {
@@ -42,20 +44,20 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public Allergen getAllergen() {
+		return allergen;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAllergen(Allergen allergen) {
+		this.allergen = allergen;
 	}
 
-	public Role getRole() {
-		return role;
+	public RegularUser getRegUser() {
+		return regUser;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRegUser(RegularUser regUser) {
+		this.regUser = regUser;
 	}
 
 	public Boolean getDeleted() {
@@ -65,7 +67,6 @@ public class UserRole {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-
 	
 	
 	
