@@ -7,10 +7,10 @@ import dtos.CookUserDTO;
 
 public interface CookUserService {
 	
-	public CookUserDTO add(CookUserDTO CookUser);
+	public CookUserDTO addCook(CookUserDTO CookUser);
 	
-	public CookUserDTO modify(Long id, CookUserDTO cook)throws RESTError;
+	public CookUserDTO modifyCook(Long id, CookUserDTO cook)throws RESTError;
 	
-	public CookUser delete(Long id) throws RESTError;
+	public CookUser deleteCook(Long id) throws RESTError;
 
 }

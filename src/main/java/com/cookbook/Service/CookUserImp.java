@@ -1,6 +1,5 @@
 package com.cookbook.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +20,13 @@ public class CookUserImp implements CookUserService {
 	CookUserMapper cookUserMapper;
 
 	@Override
-	public CookUserDTO add(CookUserDTO CookUser) {
+	public CookUserDTO addCook(CookUserDTO CookUser) {
 		
 		return cookUserMapper.toDto(cookUserRepository.save(cookUserMapper.toEntity(CookUser)));
 	}
 
 	@Override
-	public CookUserDTO modify(Long id, CookUserDTO cook) throws RESTError {
+	public CookUserDTO modifyCook(Long id, CookUserDTO cook) throws RESTError {
 		if (cookUserRepository.existsById(id)) {
 		return cookUserMapper.toDto(cookUserRepository.save(cookUserMapper.toEntity(cook)));
 		}
@@ -35,14 +34,15 @@ public class CookUserImp implements CookUserService {
 	}
 
 	@Override
-	public CookUser delete(Long id) throws RESTError {
+	public CookUser deleteCook(Long id) throws RESTError {
 		Optional<CookUser>cook=cookUserRepository.findById(id);
-		if(!cook.isEmpty()) {
-			cookUserRepository.delete(cook.get());;
+		if(cook.isEmpty()) {
+			throw new RESTError(1, "Cook not exists");
+		}	
+		CookUser cookEntity = cook.get();
+		cookEntity.setDeleted(true);
+		return cookEntity;
 		
-		return cook.get();
-	}
-		throw new RESTError(1, "Cook not exists");
 	}
 
 }

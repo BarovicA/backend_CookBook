@@ -7,11 +7,11 @@ import dtos.IngridientDTO;
 
 public interface IngridientService {
 	
-	public IngridientDTO add(IngridientDTO ingriendient);
+	public IngridientDTO addIngridien(IngridientDTO ingriendient);
 	
-	public IngridientDTO modify(Long id, IngridientDTO ingridient)throws RESTError;
+	public IngridientDTO modifyIngridien(Long id, IngridientDTO ingridient)throws RESTError;
 	
-	public Ingridient delete (Long id)throws RESTError;
+	public Ingridient deleteIngridien (Long id)throws RESTError;
 	
 	
 
