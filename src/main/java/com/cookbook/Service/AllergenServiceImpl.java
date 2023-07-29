@@ -3,6 +3,7 @@ package com.cookbook.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cookbook.entities.Allergen;
 import com.cookbook.entities.AllergenRegularUser;
@@ -13,6 +14,7 @@ import com.cookbook.util.RESTError;
 
 import dtos.AlergeniDTO;
 
+@Service
 public class AllergenServiceImpl implements AllergenService {
 	
 	@Autowired
