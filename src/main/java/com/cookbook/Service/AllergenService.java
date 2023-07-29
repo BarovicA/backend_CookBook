@@ -3,13 +3,13 @@ package com.cookbook.Service;
 import com.cookbook.entities.Allergen;
 import com.cookbook.util.RESTError;
 
-import dtos.AlergeniDTO;
+import dtos.AllergenDTO;
 
 public interface AllergenService {
 	
-	public AlergeniDTO addAllergen(AlergeniDTO allergen);
+	public AllergenDTO addAllergen(AllergenDTO allergen);
 	
-	public AlergeniDTO modifyAllergen(Long id,AlergeniDTO allergen)throws RESTError;
+	public AllergenDTO modifyAllergen(Long id,AllergenDTO allergen)throws RESTError;
 	
 	public Allergen deleteAllergen(Long id)throws RESTError;
 

@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class AlergeniDTO {
+public class AllergenDTO {
 
 	@Column
 	@NotNull(message = "Name must be included.")
@@ -15,7 +15,7 @@ public class AlergeniDTO {
 	@NotNull(message = "Name must be included.")
 	private String icon;
 
-	public AlergeniDTO(
+	public AllergenDTO(
 			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
 			@NotNull(message = "Name must be included.") String icon) {
 		super();
@@ -25,7 +25,7 @@ public class AlergeniDTO {
 
 	
 
-	public AlergeniDTO() {
+	public AllergenDTO() {
 		super();
 	}
 

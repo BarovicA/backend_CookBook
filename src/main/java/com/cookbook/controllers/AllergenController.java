@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.Service.AllergenService;
 
-import dtos.AlergeniDTO;
+import dtos.AllergenDTO;
 
 @RestController
 @RequestMapping(path = "/api/v1/allergen")
@@ -20,7 +20,7 @@ public class AllergenController {
 	private AllergenService allergenService;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/addAllergen")
-	public ResponseEntity<?> addAllergen(@RequestBody AlergeniDTO allergenDto) {
+	public ResponseEntity<?> addAllergen(@RequestBody AllergenDTO allergenDto) {
 
 		var responseDto = allergenService.addAllergen(allergenDto);
 		

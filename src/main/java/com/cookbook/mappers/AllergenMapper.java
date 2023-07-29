@@ -4,21 +4,21 @@ import org.springframework.stereotype.Service;
 
 import com.cookbook.entities.Allergen;
 
-import dtos.AlergeniDTO;
+import dtos.AllergenDTO;
 
 @Service
-public class AllergenMapper implements GenericMapper<Allergen, AlergeniDTO> {
+public class AllergenMapper implements GenericMapper<Allergen, AllergenDTO> {
 
 	@Override
-	public Allergen toEntity(AlergeniDTO dto) {
+	public Allergen toEntity(AllergenDTO dto) {
 	
 		return new Allergen(dto.getName(),dto.getIcon());
 	}
 
 	@Override
-	public AlergeniDTO toDto(Allergen entity) {
+	public AllergenDTO toDto(Allergen entity) {
 		
-		return new AlergeniDTO(entity.getName(),entity.getIcon());
+		return new AllergenDTO(entity.getName(),entity.getIcon());
 	}
 
 }

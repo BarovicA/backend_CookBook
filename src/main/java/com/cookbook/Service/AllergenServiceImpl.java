@@ -12,7 +12,7 @@ import com.cookbook.mappers.AllergenMapper;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
 
-import dtos.AlergeniDTO;
+import dtos.AllergenDTO;
 
 @Service
 public class AllergenServiceImpl implements AllergenService {
@@ -23,13 +23,13 @@ public class AllergenServiceImpl implements AllergenService {
 	AllergenRepository allergenRepository;
 
 	@Override
-	public AlergeniDTO addAllergen(AlergeniDTO allergen) {
+	public AllergenDTO addAllergen(AllergenDTO allergen) {
 		
 		return allergenMapper.toDto(allergenRepository.save(allergenMapper.toEntity(allergen)));
 	}
 
 	@Override
-	public AlergeniDTO modifyAllergen(Long id, AlergeniDTO allergen) throws RESTError {
+	public AllergenDTO modifyAllergen(Long id, AllergenDTO allergen) throws RESTError {
 		
 		if (allergenRepository.existsById(id)) {
 			return allergenMapper.toDto(allergenRepository.save(allergenMapper.toEntity(allergen)));

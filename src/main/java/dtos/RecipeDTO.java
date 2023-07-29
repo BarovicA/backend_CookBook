@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class ReceptiDTO {
+public class RecipeDTO {
 
 	@Column
 	@NotNull(message = "Name must be included.")
@@ -28,7 +28,7 @@ public class ReceptiDTO {
 	@NotNull(message = "Expected yield must be included.")
 	private String expectedYield;
 
-	public ReceptiDTO(
+	public RecipeDTO(
 			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
 			@NotNull(message = "Description must be included.") @Size(min = 2, max = 500, message = "Description must be beetwen {min} and {max} characters long.") String decription,
 			@NotNull(message = "Steps must be included.") String steps,
@@ -42,7 +42,7 @@ public class ReceptiDTO {
 		this.expectedYield = expectedYield;
 	}
 
-	public ReceptiDTO() {
+	public RecipeDTO() {
 		super();
 	}
 
