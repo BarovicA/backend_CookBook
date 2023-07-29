@@ -1,5 +1,7 @@
 package com.cookbook.entities;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -12,26 +14,31 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+
+
 @Entity
-public class UserRole {
+public class UserRegularRecipe {
+
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "recipe")
+	private Recipe recipe;
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user")
-    private User user;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "role")
-    private Role role;
+	private RegularUser user;
 	
 	@Column
 	@JsonIgnore
 	private Boolean deleted;
 
-	public UserRole() {
+	public UserRegularRecipe() {
 	}
 
 	public Long getId() {
@@ -42,20 +49,20 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
+	}
+
+	public RegularUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(RegularUser user) {
 		this.user = user;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public Boolean getDeleted() {
@@ -65,8 +72,6 @@ public class UserRole {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-
-	
 	
 	
 }

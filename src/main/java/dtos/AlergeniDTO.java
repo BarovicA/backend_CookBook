@@ -7,31 +7,44 @@ import jakarta.validation.constraints.Size;
 public class AlergeniDTO {
 
 	@Column
-	protected String ikona;
+	@NotNull(message = "Name must be included.")
+	@Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
+	private String name;
+	
 	@Column
-	@NotNull(message = "Name must be provided")
-	@Size(min=2, max=30, message = "Name must be between {min} and {max} characters long.")
-	protected String naziv;
+	@NotNull(message = "Name must be included.")
+	private String icon;
+
+	public AlergeniDTO(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon) {
+		super();
+		this.name = name;
+		this.icon = icon;
+	}
+
+	
+
 	public AlergeniDTO() {
 		super();
 	}
-	public AlergeniDTO(String ikona,
-			@NotNull(message = "Name must be provided") @Size(min = 2, max = 30, message = "Name must be between {min} and {max} characters long.") String naziv) {
-		super();
-		this.ikona = ikona;
-		this.naziv = naziv;
+
+
+
+	public String getName() {
+		return name;
 	}
-	public String getIkona() {
-		return ikona;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setIkona(String ikona) {
-		this.ikona = ikona;
+
+	public String getIcon() {
+		return icon;
 	}
-	public String getNaziv() {
-		return naziv;
-	}
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	
 	
