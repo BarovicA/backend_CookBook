@@ -14,56 +14,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.cookbook.service.AllergenService;
-import com.cookbook.dto.AllergenDTO;
-import com.cookbook.repositories.AllergenRepository;
+
+import com.cookbook.dto.CookUserDTO;
+import com.cookbook.repositories.CookUserRepository;
+import com.cookbook.service.CookUserService;
 import com.cookbook.util.RESTError;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/api/v1/allergen")
-public class AllergenController {
+@RequestMapping(path = "/api/v1/cookUser")
+public class CookUserController {
 	
 	@Autowired
-	AllergenService allergenService;
+	CookUserService cookUserService;
 	@Autowired
-	AllergenRepository allergenRepository;
+	CookUserRepository cookUserRepository;
 	
 	private String createErrorMessage(BindingResult result) {
 		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" "));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addAllergen(@Valid @RequestBody AllergenDTO allergen,BindingResult result)  {
+	public ResponseEntity<?> addCook(@Valid @RequestBody CookUserDTO cook,BindingResult result) throws RESTError  {
 		
 		if(result.hasErrors()) {
 			return new ResponseEntity<>(createErrorMessage(result),HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(allergenService.addAllergen(allergen), HttpStatus.OK);
+		return new ResponseEntity<>(cookUserService.addCook(cook), HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-	public ResponseEntity<?>modifyAllergen(@PathVariable Long id,@Valid @RequestBody AllergenDTO allergen, BindingResult result){
+	public ResponseEntity<?>modifyCook(@PathVariable Long id,@Valid @RequestBody CookUserDTO cook, BindingResult result){
 		try {
 			if(result.hasErrors()) {
 				return new ResponseEntity<>(createErrorMessage(result),HttpStatus.BAD_REQUEST);
 			}
-			allergenService.modifyAllergen(id, allergen);
-			return new ResponseEntity<>(allergen,HttpStatus.OK);
+			cookUserService.modifyCook(id, cook);
+			return new ResponseEntity<>(cook,HttpStatus.OK);
 		}catch (RESTError e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public ResponseEntity<?> removeAllergen(@PathVariable Long id) {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(allergenService.deleteAllergen(id));
-		} catch (RESTError e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
 		
+		@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+		public ResponseEntity<?> removeCook(@PathVariable Long id) {
+			try {
+				return ResponseEntity.status(HttpStatus.OK).body(cookUserService.deleteCook(id));
+			} catch (RESTError e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			}
 	}
 
 }

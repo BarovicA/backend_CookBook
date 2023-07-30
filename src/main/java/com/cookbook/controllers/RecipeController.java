@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cookbook.Service.RecipeService;
+import com.cookbook.service.RecipeService;
 import com.cookbook.entities.Recipe;
 import com.cookbook.validation.Validation;
 

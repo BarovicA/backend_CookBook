@@ -1,4 +1,4 @@
-package com.cookbook.Service;
+package com.cookbook.service;
 
 import com.cookbook.dto.IngridientDTO;
 import com.cookbook.entities.Ingridient;
