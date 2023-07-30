@@ -5,12 +5,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cookbook.dto.AllergenDTO;
 import com.cookbook.entities.Allergen;
 import com.cookbook.mappers.AllergenMapper;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
-
-import dtos.AllergenDTO;
 
 @Service
 public class AllergenServiceImpl implements AllergenService {

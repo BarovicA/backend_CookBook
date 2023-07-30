@@ -5,13 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cookbook.dto.IngridientDTO;
 import com.cookbook.entities.Ingridient;
 import com.cookbook.mappers.IngridientMapper;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.repositories.IngridientRepository;
 import com.cookbook.util.RESTError;
-
-import dtos.IngridientDTO;
 @Service
 public class IngridientServiceimp implements IngridientService {
 	

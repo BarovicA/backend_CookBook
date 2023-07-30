@@ -17,7 +17,7 @@ import com.cookbook.repositories.IngridientRepository;
 import com.cookbook.service.IngridientService;
 import com.cookbook.util.RESTError;
 
-import dtos.IngridientDTO;
+import com.cookbook.dto.IngridientDTO;
 import jakarta.validation.Valid;
 
 @RestController

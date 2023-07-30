@@ -21,49 +21,48 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Recipe {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column
 	@NotNull(message = "Name must be included.")
-	@Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
+	@Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.")
 	private String name;
-	
+
 	@Column
 	@NotNull(message = "Description must be included.")
-	@Size(min=2,max = 500, message= "Description must be beetwen {min} and {max} characters long.")
+	@Size(min = 2, max = 500, message = "Description must be beetwen {min} and {max} characters long.")
 	private String decription;
-	
+
 	@Column
 	@NotNull(message = "Steps must be included.")
 	private String steps;
-	
+
 	@Column
 	@NotNull(message = "Time to prepare must be included.")
 	private Integer timeToPrepare;
-	
+
 	@Column
 	@NotNull(message = "Expected yield must be included.")
 	private String expectedYield;
-	
+
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cook")
 	private CookUser cook;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<IngridientRecipe> ingridientRecipe = new ArrayList<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<UserRegularRecipe> userRegularRecipe = new ArrayList<>();
-	
+
 	@Column
 	@JsonIgnore
 	private Boolean deleted;
-	
+
 	public Boolean getDeleted() {
 		return deleted;
 	}
@@ -73,8 +72,9 @@ public class Recipe {
 	}
 
 	public Recipe() {
+		this.deleted = false;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -147,59 +147,5 @@ public class Recipe {
 		this.userRegularRecipe = userRegularRecipe;
 	}
 
-	public Recipe(Long id,
-			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
-			@NotNull(message = "Description must be included.") @Size(min = 2, max = 500, message = "Description must be beetwen {min} and {max} characters long.") String decription,
-			@NotNull(message = "Steps must be included.") String steps,
-			@NotNull(message = "Time to prepare must be included.") Integer timeToPrepare,
-			@NotNull(message = "Expected yield must be included.") String expectedYield, CookUser cook,
-			List<IngridientRecipe> ingridientRecipe, List<UserRegularRecipe> userRegularRecipe, Boolean deleted) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.decription = decription;
-		this.steps = steps;
-		this.timeToPrepare = timeToPrepare;
-		this.expectedYield = expectedYield;
-		this.cook = cook;
-		this.ingridientRecipe = ingridientRecipe;
-		this.userRegularRecipe = userRegularRecipe;
-		this.deleted = deleted;
-	}
 
-	public Recipe(
-			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
-			@NotNull(message = "Description must be included.") @Size(min = 2, max = 500, message = "Description must be beetwen {min} and {max} characters long.") String decription,
-			@NotNull(message = "Steps must be included.") String steps,
-			@NotNull(message = "Time to prepare must be included.") Integer timeToPrepare,
-			@NotNull(message = "Expected yield must be included.") String expectedYield, CookUser cook,
-			List<IngridientRecipe> ingridientRecipe, List<UserRegularRecipe> userRegularRecipe, Boolean deleted) {
-		super();
-		this.name = name;
-		this.decription = decription;
-		this.steps = steps;
-		this.timeToPrepare = timeToPrepare;
-		this.expectedYield = expectedYield;
-		this.cook = cook;
-		this.ingridientRecipe = ingridientRecipe;
-		this.userRegularRecipe = userRegularRecipe;
-		this.deleted = deleted;
-	}
-
-	public Recipe(
-			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
-			@NotNull(message = "Description must be included.") @Size(min = 2, max = 500, message = "Description must be beetwen {min} and {max} characters long.") String decription,
-			@NotNull(message = "Steps must be included.") String steps,
-			@NotNull(message = "Time to prepare must be included.") Integer timeToPrepare,
-			@NotNull(message = "Expected yield must be included.") String expectedYield) {
-		super();
-		this.name = name;
-		this.decription = decription;
-		this.steps = steps;
-		this.timeToPrepare = timeToPrepare;
-		this.expectedYield = expectedYield;
-	}
-
-	
-	
 }
