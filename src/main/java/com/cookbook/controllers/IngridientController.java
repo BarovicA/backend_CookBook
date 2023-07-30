@@ -1,4 +1,4 @@
-package com.cookbook.Controllers;
+package com.cookbook.controllers;
 
 import java.util.stream.Collectors;
 
@@ -13,55 +13,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cookbook.repositories.CookUserRepository;
-import com.cookbook.service.CookUserService;
+import com.cookbook.repositories.IngridientRepository;
+import com.cookbook.service.IngridientService;
 import com.cookbook.util.RESTError;
 
-import dtos.CookUserDTO;
+import dtos.IngridientDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/api/v1/cookUser")
-public class CookUserController {
+@RequestMapping(path = "/api/v1/ingridient")
+public class IngridientController {
 	
 	@Autowired
-	CookUserService cookUserService;
+	IngridientService ingridientService;
 	@Autowired
-	CookUserRepository cookUserRepository;
+	IngridientRepository ingridientRepository;
+
 	
 	private String createErrorMessage(BindingResult result) {
 		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" "));
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addCook(@Valid @RequestBody CookUserDTO cook,BindingResult result) throws RESTError  {
+	public ResponseEntity<?> addIngridient(@Valid @RequestBody IngridientDTO ingridient,BindingResult result)  {
 		
 		if(result.hasErrors()) {
 			return new ResponseEntity<>(createErrorMessage(result),HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(cookUserService.addCook(cook), HttpStatus.OK);
+		return new ResponseEntity<>(ingridientService.addIngridien(ingridient), HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-	public ResponseEntity<?>modifyCook(@PathVariable Long id,@Valid @RequestBody CookUserDTO cook, BindingResult result){
+	public ResponseEntity<?>modifyIngridient(@PathVariable Long id,@Valid @RequestBody IngridientDTO ingridient, BindingResult result){
 		try {
 			if(result.hasErrors()) {
 				return new ResponseEntity<>(createErrorMessage(result),HttpStatus.BAD_REQUEST);
 			}
-			cookUserService.modifyCook(id, cook);
-			return new ResponseEntity<>(cook,HttpStatus.OK);
+			ingridientService.modifyIngridien(id, ingridient);
+			return new ResponseEntity<>(ingridient,HttpStatus.OK);
 		}catch (RESTError e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	public ResponseEntity<?> removeIngridient(@PathVariable Long id) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.deleteIngridien(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 		
-		@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-		public ResponseEntity<?> removeCook(@PathVariable Long id) {
-			try {
-				return ResponseEntity.status(HttpStatus.OK).body(cookUserService.deleteCook(id));
-			} catch (RESTError e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-			}
 	}
-
 }

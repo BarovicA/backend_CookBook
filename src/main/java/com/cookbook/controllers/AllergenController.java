@@ -1,4 +1,4 @@
-package com.cookbook.Controllers;
+package com.cookbook.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
