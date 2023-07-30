@@ -8,5 +8,4 @@ import jakarta.persistence.Entity;
 public class AdminUser extends User {
 	
 	
-
 }
