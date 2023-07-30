@@ -1,4 +1,4 @@
-package dtos;
+package com.cookbook.dto;
 
 import jakarta.persistence.Column;
 

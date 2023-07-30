@@ -1,9 +1,8 @@
 package com.cookbook.Service;
 
+import com.cookbook.dto.CookUserDTO;
 import com.cookbook.entities.CookUser;
 import com.cookbook.util.RESTError;
-
-import dtos.CookUserDTO;
 
 public interface CookUserService {
 	

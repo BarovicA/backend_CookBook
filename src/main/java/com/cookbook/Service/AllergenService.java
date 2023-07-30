@@ -1,9 +1,8 @@
 package com.cookbook.Service;
 
+import com.cookbook.dto.AllergenDTO;
 import com.cookbook.entities.Allergen;
 import com.cookbook.util.RESTError;
-
-import dtos.AllergenDTO;
 
 public interface AllergenService {
 	

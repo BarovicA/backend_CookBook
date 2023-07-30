@@ -1,4 +1,4 @@
-package dtos;
+package com.cookbook.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

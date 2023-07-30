@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.Service.AllergenService;
+import com.cookbook.dto.AllergenDTO;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
 
-import dtos.AllergenDTO;
 import jakarta.validation.Valid;
 
 @RestController

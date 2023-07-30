@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.Service.CookUserService;
+import com.cookbook.dto.CookUserDTO;
 import com.cookbook.repositories.CookUserRepository;
 import com.cookbook.util.RESTError;
 
-import dtos.CookUserDTO;
 import jakarta.validation.Valid;
 
 @RestController
