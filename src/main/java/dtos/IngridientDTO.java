@@ -38,6 +38,19 @@ public class IngridientDTO {
 	@Column
 	@NotNull(message = "Proteins must be included.")
 	private Integer proteins;
+	
+	@Column
+	protected Boolean deleted;
+
+	
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public IngridientDTO(
 			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
@@ -47,7 +60,7 @@ public class IngridientDTO {
 			@NotNull(message = "Sugars must be included.") Integer sugars,
 			@NotNull(message = "Fats must be included.") Integer fats,
 			@NotNull(message = "Saturated fats must be included.") Integer saturatedFats,
-			@NotNull(message = "Proteins must be included.") Integer proteins) {
+			@NotNull(message = "Proteins must be included.") Integer proteins, Boolean deleted) {
 		super();
 		this.name = name;
 		this.servingSize = servingSize;
@@ -57,6 +70,7 @@ public class IngridientDTO {
 		this.fats = fats;
 		this.saturatedFats = saturatedFats;
 		this.proteins = proteins;
+		this.deleted = deleted;
 	}
 
 	public IngridientDTO() {

@@ -284,6 +284,28 @@ public class Ingridient {
 	public Ingridient() {
 		super();
 	}
+
+
+	public Ingridient(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Serving size must be included.") String servingSize,
+			@NotNull(message = "Calories must be included.") Integer calories,
+			@NotNull(message = "Carbs must be included.") Integer carbs,
+			@NotNull(message = "Sugars must be included.") Integer sugars,
+			@NotNull(message = "Fats must be included.") Integer fats,
+			@NotNull(message = "Saturated fats must be included.") Integer saturatedFats,
+			@NotNull(message = "Proteins must be included.") Integer proteins, Boolean deleted) {
+		super();
+		this.name = name;
+		this.servingSize = servingSize;
+		this.calories = calories;
+		this.carbs = carbs;
+		this.sugars = sugars;
+		this.fats = fats;
+		this.saturatedFats = saturatedFats;
+		this.proteins = proteins;
+		this.deleted = deleted;
+	}
 	
 	
 }

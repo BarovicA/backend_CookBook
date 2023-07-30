@@ -1,4 +1,4 @@
-package com.cookbook.controllers;
+package com.cookbook.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cookbook.Service.AllergenService;
+import com.cookbook.service.AllergenService;
 
 import dtos.AllergenDTO;
 
