@@ -24,7 +24,7 @@ public class CookUserDTO {
 	
 	@Column(nullable=false,name="password")
 	@NotNull(message="Password must be provided")
-	@Size(min=5,max=100, message= "password must be beetwen {min} and {max} characters long.")
+	@Size(min=6,max=30, message= "password must be beetwen {min} and {max} characters long.")
 //	@JsonIgnore
 	protected String password;
 
