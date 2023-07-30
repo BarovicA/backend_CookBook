@@ -72,6 +72,7 @@ public class Recipe {
 	}
 
 	public Recipe() {
+		this.deleted = false;
 	}
 
 	public Long getId() {
