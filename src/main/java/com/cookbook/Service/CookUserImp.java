@@ -28,10 +28,20 @@ public class CookUserImp implements CookUserService {
 
 	@Override
 	public CookUserDTO modifyCook(Long id, CookUserDTO cook) throws RESTError {
-		if (cookUserRepository.existsById(id)) {
-		return cookUserMapper.toDto(cookUserRepository.save(cookUserMapper.toEntity(cook)));
-		}
+		if (!cookUserRepository.existsById(id)) {
 		throw new RESTError(1, "Cook not exists");
+		}
+		CookUser existingCook= cookUserRepository.findById(id).get();
+		
+		existingCook.setFirstName(cook.getFirstName());
+		existingCook.setLastName(cook.getLastName());
+		existingCook.setUsername(cook.getUsername());
+		existingCook.setPassword(cook.getPassword());
+		
+		
+		
+		CookUser savedCook= cookUserRepository.save(existingCook);
+		return cookUserMapper.toDto(savedCook);
 	}
 
 	@Override
@@ -42,7 +52,7 @@ public class CookUserImp implements CookUserService {
 		}	
 		CookUser cookEntity = cook.get();
 		cookEntity.setDeleted(true);
-		return cookEntity;
+		return cookUserRepository.save(cookEntity);
 		
 	}
 

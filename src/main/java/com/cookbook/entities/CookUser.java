@@ -26,15 +26,26 @@ public class CookUser extends User {
 	@JsonIgnore
 	private Boolean deleted = false;
 	
-	public CookUser(List<com.cookbook.entities.Recipe> recipe) {
+	public CookUser(List<Recipe> recipe) {
 		super();
 		Recipe = recipe;
 	}
 
 
-	public CookUser(String firstName, String lastName, String username, String password) {
+	public CookUser() {
 		super();
 	}
+
+
+	public CookUser(String firstName, String lastName, String username, String password) {
+		super();
+		this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.username = username;
+	    this.password = password;
+
+	}
+	
 
 
 	public List<Recipe> getRecipe() {
@@ -55,6 +66,5 @@ public class CookUser extends User {
 		this.deleted = deleted;
 	}
 	
-	
-	
+	    
 }

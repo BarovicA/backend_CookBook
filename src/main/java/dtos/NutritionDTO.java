@@ -5,79 +5,82 @@ import jakarta.persistence.Column;
 public class NutritionDTO {
 
 	@Column
-	protected double gramiUgljeniHidrati;
+	protected double carbohydrates;
 	@Column
-	protected double secera;
+	protected double shugers;
 	@Column
-	protected double masti;
+	protected double fats;
 	@Column
-	protected double zasiceneMasti;
+	protected double satturatedFats;
 	@Column
-	protected double proteini;
+	protected double proteins;
 	@Column
-	protected Integer brojKalorija;
+	protected Integer calories;
+
 
 	public NutritionDTO() {
 		super();
 	}
 
-	public NutritionDTO(double gramiUgljeniHidrati, double secera, double masti, double zasiceneMasti,
-			double proteini, Integer brojKalorija) {
+
+	public NutritionDTO(double carbohydrates, double shugers, double fats, double satturatedFats, double proteins,
+			Integer calories) {
 		super();
-		this.gramiUgljeniHidrati = gramiUgljeniHidrati;
-		this.secera = secera;
-		this.masti = masti;
-		this.zasiceneMasti = zasiceneMasti;
-		this.proteini = proteini;
-		this.brojKalorija = brojKalorija;
+		this.carbohydrates = carbohydrates;
+		this.shugers = shugers;
+		this.fats = fats;
+		this.satturatedFats = satturatedFats;
+		this.proteins = proteins;
+		this.calories = calories;
 	}
 
-	public double getGramiUgljeniHidrati() {
-		return gramiUgljeniHidrati;
+	public double getCarbohydrates() {
+		return carbohydrates;
 	}
 
-	public void setGramiUgljeniHidrati(double gramiUgljeniHidrati) {
-		this.gramiUgljeniHidrati = gramiUgljeniHidrati;
+	public void setCarbohydrates(double carbohydrates) {
+		this.carbohydrates = carbohydrates;
 	}
 
-	public double getSecera() {
-		return secera;
+	public double getShugers() {
+		return shugers;
 	}
 
-	public void setSecera(double secera) {
-		this.secera = secera;
+	public void setShugers(double shugers) {
+		this.shugers = shugers;
 	}
 
-	public double getMasti() {
-		return masti;
+	public double getFats() {
+		return fats;
 	}
 
-	public void setMasti(double masti) {
-		this.masti = masti;
+	public void setFats(double fats) {
+		this.fats = fats;
 	}
 
-	public double getZasiceneMasti() {
-		return zasiceneMasti;
+	public double getSatturatedFats() {
+		return satturatedFats;
 	}
 
-	public void setZasiceneMasti(double zasiceneMasti) {
-		this.zasiceneMasti = zasiceneMasti;
+	public void setSatturatedFats(double satturatedFats) {
+		this.satturatedFats = satturatedFats;
 	}
 
-	public double getProteini() {
-		return proteini;
+	public double getProteins() {
+		return proteins;
 	}
 
-	public void setProteini(double proteini) {
-		this.proteini = proteini;
+	public void setProteins(double proteins) {
+		this.proteins = proteins;
 	}
 
-	public Integer getBrojKalorija() {
-		return brojKalorija;
+	public Integer getCalories() {
+		return calories;
 	}
 
-	public void setBrojKalorija(Integer brojKalorija) {
-		this.brojKalorija = brojKalorija;
+	public void setCalories(Integer calories) {
+		this.calories = calories;
 	}
+
 
 }
