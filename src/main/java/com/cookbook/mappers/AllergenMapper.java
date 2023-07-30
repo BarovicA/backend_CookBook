@@ -1,12 +1,16 @@
 package com.cookbook.mappers;
 
+
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.cookbook.entities.Allergen;
 
 import dtos.AllergenDTO;
 
 @Component
+@Service
+
 public class AllergenMapper implements GenericMapper<Allergen, AllergenDTO> {
 
 	@Override
@@ -19,6 +23,7 @@ public class AllergenMapper implements GenericMapper<Allergen, AllergenDTO> {
 	public AllergenDTO toDto(Allergen entity) {
 		
 		return new AllergenDTO(entity.getName(),entity.getIcon(),entity.getDeleted());
+
 	}
 
 }

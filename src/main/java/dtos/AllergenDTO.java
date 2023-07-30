@@ -38,6 +38,15 @@ public class AllergenDTO {
 
 
 
+	public AllergenDTO(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon) {
+		super();
+		this.name = name;
+		this.icon = icon;
+	}
+
+
 	public AllergenDTO() {
 		super();
 	}
@@ -61,16 +70,14 @@ public class AllergenDTO {
 	}
 
 
-
 	public Boolean getDeleted() {
 		return deleted;
 	}
 
 
-
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-	
-	
+
+		
 }

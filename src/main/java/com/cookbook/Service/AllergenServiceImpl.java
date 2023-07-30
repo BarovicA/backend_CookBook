@@ -11,6 +11,7 @@ import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
 
 import dtos.AllergenDTO;
+
 @Service
 public class AllergenServiceImpl implements AllergenService {
 	
@@ -28,6 +29,7 @@ public class AllergenServiceImpl implements AllergenService {
 	}
 
 	@Override
+
 	public AllergenDTO modifyAllergen(Long id, AllergenDTO allergenDTO) throws RESTError {
 	    if (!allergenRepository.existsById(id)) {
 	        throw new RESTError(1, "Allergen with the given id does not exist.");
