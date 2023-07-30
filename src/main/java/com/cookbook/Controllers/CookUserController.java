@@ -1,4 +1,4 @@
-package com.cookbook.Controllers;
+package com.cookbook.controllers;
 
 import java.util.stream.Collectors;
 

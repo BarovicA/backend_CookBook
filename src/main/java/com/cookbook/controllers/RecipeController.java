@@ -59,7 +59,7 @@ public class RecipeController {
 
 	// Dobijanje recepta po imenu
 	@GetMapping("/name/{name}")
-	public Recipe getRecipeByName(@PathVariable String name) {
+	public List<Recipe> getRecipeByName(@PathVariable String name) {
 		return recipeService.getByName(name);
 	}
 
