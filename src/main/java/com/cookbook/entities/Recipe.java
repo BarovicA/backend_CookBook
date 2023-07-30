@@ -21,49 +21,48 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Recipe {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column
 	@NotNull(message = "Name must be included.")
-	@Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
+	@Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.")
 	private String name;
-	
+
 	@Column
 	@NotNull(message = "Description must be included.")
-	@Size(min=2,max = 500, message= "Description must be beetwen {min} and {max} characters long.")
+	@Size(min = 2, max = 500, message = "Description must be beetwen {min} and {max} characters long.")
 	private String decription;
-	
+
 	@Column
 	@NotNull(message = "Steps must be included.")
 	private String steps;
-	
+
 	@Column
 	@NotNull(message = "Time to prepare must be included.")
 	private Integer timeToPrepare;
-	
+
 	@Column
 	@NotNull(message = "Expected yield must be included.")
 	private String expectedYield;
-	
+
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cook")
 	private CookUser cook;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<IngridientRecipe> ingridientRecipe = new ArrayList<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<UserRegularRecipe> userRegularRecipe = new ArrayList<>();
-	
+
 	@Column
 	@JsonIgnore
 	private Boolean deleted;
-	
+
 	public Boolean getDeleted() {
 		return deleted;
 	}
@@ -74,7 +73,7 @@ public class Recipe {
 
 	public Recipe() {
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -147,6 +146,4 @@ public class Recipe {
 		this.userRegularRecipe = userRegularRecipe;
 	}
 
-	
-	
 }
