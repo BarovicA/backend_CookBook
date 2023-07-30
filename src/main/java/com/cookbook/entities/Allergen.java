@@ -47,11 +47,10 @@ public class Allergen {
 	@OneToMany(mappedBy = "allergen", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<IngridientAllergen> ingridientAllergens = new ArrayList<>();
 	
-	@JsonIgnore
+	
 	@Column
 	protected Boolean deleted;
-	
-	@JsonIgnore
+
 	@Version
 	private Integer version;
 
@@ -148,6 +147,15 @@ public class Allergen {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public Allergen(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon, Boolean deleted) {
+		super();
+		this.name = name;
+		this.icon = icon;
+		this.deleted = deleted;
 	}
 
 	

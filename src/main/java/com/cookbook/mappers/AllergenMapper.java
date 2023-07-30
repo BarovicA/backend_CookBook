@@ -1,21 +1,24 @@
 package com.cookbook.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.cookbook.entities.Allergen;
 
-import dtos.AlergeniDTO;
+import dtos.AllergenDTO;
 
-public class AllergenMapper implements GenericMapper<Allergen, AlergeniDTO> {
+@Component
+public class AllergenMapper implements GenericMapper<Allergen, AllergenDTO> {
 
 	@Override
-	public Allergen toEntity(AlergeniDTO dto) {
+	public Allergen toEntity(AllergenDTO dto) {
 	
-		return new Allergen(dto.getName(),dto.getIcon());
+		return new Allergen(dto.getName(),dto.getIcon(),dto.getDeleted());
 	}
 
 	@Override
-	public AlergeniDTO toDto(Allergen entity) {
+	public AllergenDTO toDto(Allergen entity) {
 		
-		return new AlergeniDTO(entity.getName(),entity.getIcon());
+		return new AllergenDTO(entity.getName(),entity.getIcon(),entity.getDeleted());
 	}
 
 }

@@ -3,16 +3,15 @@ package com.cookbook.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cookbook.entities.Allergen;
-import com.cookbook.entities.AllergenRegularUser;
-import com.cookbook.entities.Ingridient;
 import com.cookbook.mappers.AllergenMapper;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
 
-import dtos.AlergeniDTO;
-
+import dtos.AllergenDTO;
+@Service
 public class AllergenServiceImpl implements AllergenService {
 	
 	@Autowired
@@ -21,19 +20,30 @@ public class AllergenServiceImpl implements AllergenService {
 	AllergenRepository allergenRepository;
 
 	@Override
-	public AlergeniDTO addAllergen(AlergeniDTO allergen) {
+	public AllergenDTO addAllergen(AllergenDTO allergen) {
 		
+		allergen.setDeleted(false);
 		return allergenMapper.toDto(allergenRepository.save(allergenMapper.toEntity(allergen)));
+		
 	}
 
 	@Override
-	public AlergeniDTO modifyAllergen(Long id, AlergeniDTO allergen) throws RESTError {
-		
-		if (allergenRepository.existsById(id)) {
-			return allergenMapper.toDto(allergenRepository.save(allergenMapper.toEntity(allergen)));
-		}
-		throw new RESTError(1, "allergen not exists");
+	public AllergenDTO modifyAllergen(Long id, AllergenDTO allergenDTO) throws RESTError {
+	    if (!allergenRepository.existsById(id)) {
+	        throw new RESTError(1, "Allergen with the given id does not exist.");
+	    }
+	   	  
+	    Allergen existingAllergen = allergenRepository.findById(id).get();
+	    
+	    existingAllergen.setName(allergenDTO.getName());
+	    existingAllergen.setIcon(allergenDTO.getIcon());
+	    existingAllergen.setDeleted(allergenDTO.getDeleted());
+	   
+	    Allergen savedAllergen = allergenRepository.save(existingAllergen);
+	 
+	    return allergenMapper.toDto(savedAllergen);
 	}
+
 
 	@Override
 	public Allergen deleteAllergen(Long id) throws RESTError {

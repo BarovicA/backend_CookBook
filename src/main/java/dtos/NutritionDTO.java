@@ -2,7 +2,7 @@ package dtos;
 
 import jakarta.persistence.Column;
 
-public class HranljivostDTO {
+public class NutritionDTO {
 
 	@Column
 	protected double gramiUgljeniHidrati;
@@ -17,11 +17,11 @@ public class HranljivostDTO {
 	@Column
 	protected Integer brojKalorija;
 
-	public HranljivostDTO() {
+	public NutritionDTO() {
 		super();
 	}
 
-	public HranljivostDTO(double gramiUgljeniHidrati, double secera, double masti, double zasiceneMasti,
+	public NutritionDTO(double gramiUgljeniHidrati, double secera, double masti, double zasiceneMasti,
 			double proteini, Integer brojKalorija) {
 		super();
 		this.gramiUgljeniHidrati = gramiUgljeniHidrati;
