@@ -47,15 +47,50 @@ public class Allergen {
 	@OneToMany(mappedBy = "allergen", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<IngridientAllergen> ingridientAllergens = new ArrayList<>();
 	
-	@JsonIgnore
+	
 	@Column
 	protected Boolean deleted;
-	
-	@JsonIgnore
+
 	@Version
 	private Integer version;
 
+	public Allergen(Long id,
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon, List<AllergenRegularUser> allergenRegularUsers,
+			List<IngridientAllergen> ingridientAllergens, Boolean deleted, Integer version) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.icon = icon;
+		this.allergenRegularUsers = allergenRegularUsers;
+		this.ingridientAllergens = ingridientAllergens;
+		this.deleted = deleted;
+		this.version = version;
+	}
+
+	public Allergen(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon, List<AllergenRegularUser> allergenRegularUsers,
+			List<IngridientAllergen> ingridientAllergens, Boolean deleted, Integer version) {
+		super();
+		this.name = name;
+		this.icon = icon;
+		this.allergenRegularUsers = allergenRegularUsers;
+		this.ingridientAllergens = ingridientAllergens;
+		this.deleted = deleted;
+		this.version = version;
+	}
+
+	public Allergen(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon) {
+		super();
+		this.name = name;
+		this.icon = icon;
+	}
+
 	public Allergen() {
+		super();
 	}
 
 	public Long getId() {
@@ -82,6 +117,21 @@ public class Allergen {
 		this.icon = icon;
 	}
 
+	public List<AllergenRegularUser> getAllergenRegularUsers() {
+		return allergenRegularUsers;
+	}
+
+	public void setAllergenRegularUsers(List<AllergenRegularUser> allergenRegularUsers) {
+		this.allergenRegularUsers = allergenRegularUsers;
+	}
+
+	public List<IngridientAllergen> getIngridientAllergens() {
+		return ingridientAllergens;
+	}
+
+	public void setIngridientAllergens(List<IngridientAllergen> ingridientAllergens) {
+		this.ingridientAllergens = ingridientAllergens;
+	}
 
 	public Boolean getDeleted() {
 		return deleted;
@@ -98,6 +148,19 @@ public class Allergen {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
+	public Allergen(
+			@NotNull(message = "Name must be included.") @Size(min = 2, max = 30, message = "Name must be beetwen {min} and {max} characters long.") String name,
+			@NotNull(message = "Name must be included.") String icon, Boolean deleted) {
+		super();
+		this.name = name;
+		this.icon = icon;
+		this.deleted = deleted;
+	}
+
+	
+
+	
 	
 	
 }

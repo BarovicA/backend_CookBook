@@ -1,9 +1,11 @@
 package com.cookbook.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.cookbook.entities.Ingridient;
 
 import dtos.IngridientDTO;
-
+@Component
 public class IngridientMapper implements GenericMapper<Ingridient, IngridientDTO> {
 
 	@Override

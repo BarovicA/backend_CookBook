@@ -61,7 +61,7 @@ public class Ingridient {
 	
 	@Column
 	@JsonIgnore
-	private Boolean deleted;
+	private Boolean deleted= false;
 	
 	@Version
 	private Integer version;
@@ -165,6 +165,15 @@ public class Ingridient {
 
 	public void setProteins(Integer proteins) {
 		this.proteins = proteins;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 

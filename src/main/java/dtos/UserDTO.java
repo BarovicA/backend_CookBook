@@ -20,10 +20,9 @@ public class UserDTO {
 	protected String username;
 	@Column
 	@NotNull(message = "Password must be provided")
-	@Size(min=5, max=20, message = "Name must be between {min} and {max} characters long.")
+	@Size(min=6, max=30, message = "Name must be between {min} and {max} characters long.")
 	protected String password;
 	
-	protected String repeatedPassword;
 	@Column
 	protected Boolean deleted;
 	@Column
@@ -38,13 +37,13 @@ public class UserDTO {
 			@NotNull(message = "Lastname must be provided") @Size(min = 2, max = 20, message = "Name must be between {min} and {max} characters long.") String lastName,
 			@NotNull(message = "Username must be provided") @Size(min = 5, max = 20, message = "Name must be between {min} and {max} characters long.") String username,
 			@NotNull(message = "Password must be provided") @Size(min = 5, max = 20, message = "Name must be between {min} and {max} characters long.") String password,
-			String repeatedPassword, Boolean deleted, Integer version) {
+			 Boolean deleted, Integer version) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
-		this.repeatedPassword = repeatedPassword;
+		
 		this.deleted = deleted;
 		this.version = version;
 	}
@@ -81,13 +80,7 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public String getRepeatedPassword() {
-		return repeatedPassword;
-	}
 
-	public void setRepeatedPassword(String repeatedPassword) {
-		this.repeatedPassword = repeatedPassword;
-	}
 
 	public Boolean getDeleted() {
 		return deleted;

@@ -147,4 +147,5 @@ public class Recipe {
 		this.userRegularRecipe = userRegularRecipe;
 	}
 
+
 }
