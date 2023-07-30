@@ -3,6 +3,7 @@ package com.cookbook.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cookbook.entities.CookUser;
 import com.cookbook.mappers.CookUserMapper;
@@ -10,7 +11,7 @@ import com.cookbook.repositories.CookUserRepository;
 import com.cookbook.util.RESTError;
 
 import dtos.CookUserDTO;
-
+@Service
 public class CookUserImp implements CookUserService {
 	
 	@Autowired

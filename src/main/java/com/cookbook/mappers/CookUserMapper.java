@@ -1,9 +1,11 @@
 package com.cookbook.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.cookbook.entities.CookUser;
 
 import dtos.CookUserDTO;
-
+@Component
 public class CookUserMapper implements GenericMapper<CookUser, CookUserDTO> {
 
 	@Override

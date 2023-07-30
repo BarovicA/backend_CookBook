@@ -17,9 +17,11 @@ public class NutritionDTO {
 	@Column
 	protected Integer calories;
 
+
 	public NutritionDTO() {
 		super();
 	}
+
 
 	public NutritionDTO(double carbohydrates, double shugers, double fats, double satturatedFats, double proteins,
 			Integer calories) {
@@ -80,5 +82,5 @@ public class NutritionDTO {
 		this.calories = calories;
 	}
 
-	
+
 }
