@@ -1,5 +1,6 @@
 package com.cookbook.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,32 @@ public class IngridientServiceimp implements IngridientService {
 		ingridientEntity.setDeleted(true);
 		return ingridientRepository.save(ingridientEntity);
 		
+	}
+
+	@Override
+	public Optional<Ingridient> findIngridientById(Long id) throws RESTError {
+		
+		 Optional<Ingridient> ingridient = ingridientRepository.findById(id);
+		    if (!ingridient.isEmpty()&& ingridient.get().getDeleted()==false) {
+		        return ingridient;
+		    } else {
+		        throw new RESTError(1, "Ingridient not exists");
+		    }
+	}
+
+	@Override
+	public List<Ingridient> getAllIngridient() {
+		
+		return ingridientRepository.findByDeletedFalse();
+	}
+
+	@Override
+	public List<Ingridient> getByName(String name) throws RESTError {
+		List<Ingridient>ingridient=ingridientRepository.findByDeletedFalseAndNameIgnoreCaseContaining(name);
+		if(ingridient.isEmpty()) {
+			throw new RESTError(1, "Ingridient not exists");
+		}
+		return ingridient;
 	}
 
 

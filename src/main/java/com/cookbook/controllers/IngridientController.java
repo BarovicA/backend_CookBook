@@ -1,5 +1,6 @@
 package com.cookbook.controllers;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import com.cookbook.service.IngridientService;
 import com.cookbook.util.RESTError;
 
 import com.cookbook.dto.IngridientDTO;
+import com.cookbook.entities.Ingridient;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -64,5 +67,32 @@ public class IngridientController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 		
+	}
+	@RequestMapping(method = RequestMethod.GET,value = "/{id}")
+	public ResponseEntity<?> findIngridientById(@PathVariable Long id){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.findIngridientById(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public Iterable<Ingridient>getAllIngridient(){
+		Iterable<Ingridient>ingridient1= ingridientService.getAllIngridient();
+		ArrayList<Ingridient>ingridient2= new ArrayList<>();
+		for(Ingridient s: ingridient1) {
+			ingridient2.add(s);
+		}
+		return ingridient2;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET,value = "/name/{name}")
+	public ResponseEntity<?> findIngridientByName(@PathVariable String name){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.getByName(name));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.cookbook.controllers;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.service.AllergenService;
 import com.cookbook.dto.AllergenDTO;
+import com.cookbook.entities.Allergen;
+import com.cookbook.entities.Ingridient;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
 
@@ -65,5 +68,30 @@ public class AllergenController {
 		}
 		
 	}
+	@RequestMapping(method = RequestMethod.GET,value = "/{id}")
+	public ResponseEntity<?> findAllergenById(@PathVariable Long id){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(allergenService.findIngridientById(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	@RequestMapping(method = RequestMethod.GET)
+	public Iterable<Allergen>getAllAllergen(){
+		Iterable<Allergen>allergen1= allergenService.getAllAllergen();
+		ArrayList<Allergen>allergen2= new ArrayList<>();
+		for(Allergen s: allergen1) {
+			allergen2.add(s);
+		}
+		return allergen2;
+	}
 
+	@RequestMapping(method = RequestMethod.GET,value = "/name/{name}")
+	public ResponseEntity<?> findAllergenByName(@PathVariable String name){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(allergenService.getByName(name));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
 }

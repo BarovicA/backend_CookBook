@@ -1,5 +1,6 @@
 package com.cookbook.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cookbook.dto.AllergenDTO;
 import com.cookbook.entities.Allergen;
+import com.cookbook.entities.Ingridient;
 import com.cookbook.mappers.AllergenMapper;
 import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.util.RESTError;
@@ -56,6 +58,31 @@ public class AllergenServiceImpl implements AllergenService {
 		Allergen allergenEntity = allergen.get();
 		allergenEntity.setDeleted(true);
 		return allergenRepository.save(allergenEntity);
+	}
+
+	@Override
+	public Optional<Allergen> findIngridientById(Long id) throws RESTError {
+		Optional<Allergen> allergen = allergenRepository.findById(id);
+	    if (!allergen.isEmpty()&& allergen.get().getDeleted()==false) {
+	        return allergen;
+	    } else {
+	        throw new RESTError(1, "Allergen not exists");
+	    }
+}
+
+	@Override
+	public List<Allergen> getAllAllergen() {
+		
+		return allergenRepository.findByDeletedFalse();
+	}
+
+	@Override
+	public List<Allergen> getByName(String name) throws RESTError {
+		List<Allergen>allergen=allergenRepository.findByDeletedFalseAndNameIgnoreCaseContaining(name);
+		if(allergen.isEmpty()) {
+			throw new RESTError(1, "Allergen not exists");
+		}
+		return allergen;
 	}
 
 }
