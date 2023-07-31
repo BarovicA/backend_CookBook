@@ -34,10 +34,6 @@ public class UserRegularRecipe {
 	@JoinColumn(name = "user")
 	private RegularUser user;
 	
-	@Column
-	@JsonIgnore
-	private Boolean deleted;
-
 	public UserRegularRecipe() {
 	}
 
@@ -65,13 +61,5 @@ public class UserRegularRecipe {
 		this.user = user;
 	}
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-	
 	
 }
