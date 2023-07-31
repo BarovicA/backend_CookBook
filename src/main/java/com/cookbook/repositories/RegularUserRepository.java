@@ -6,4 +6,7 @@ import com.cookbook.entities.RegularUser;
 
 public interface RegularUserRepository extends JpaRepository<RegularUser, Long> {
 
+	
+	
+	
 }

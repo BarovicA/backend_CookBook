@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,9 +21,6 @@ public class CookUser extends User {
 	@OneToMany(mappedBy = "cook", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<Recipe> Recipe = new ArrayList<>();
 
-	@Column
-	@JsonIgnore
-	private Boolean deleted = false;
 	
 	public CookUser(List<Recipe> recipe) {
 		super();
@@ -57,14 +53,7 @@ public class CookUser extends User {
 	}
 
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
 
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
 	
 	    
 }

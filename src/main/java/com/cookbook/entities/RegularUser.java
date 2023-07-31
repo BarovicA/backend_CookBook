@@ -25,10 +25,6 @@ public class RegularUser extends User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "regUser", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<AllergenRegularUser> allergenRegularUser = new ArrayList<>();
-
-	@Column
-	@JsonIgnore
-	private Boolean deleted;
 	
 	public RegularUser() {
 	}
@@ -49,12 +45,5 @@ public class RegularUser extends User {
 		this.allergenRegularUser = allergenRegularUser;
 	}
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
 	
 }
