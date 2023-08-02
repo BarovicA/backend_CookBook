@@ -126,6 +126,13 @@ public class AllergenController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-	
-	
+//	Prikaz liste ličnih alergena/OF
+	@RequestMapping(method = RequestMethod.GET,value = "/PersonalAllergen/{id}")
+	public ResponseEntity<?>viewersonAllergen(@PathVariable Long id){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(allergenService.viewPersonalallergen(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
 }

@@ -28,5 +28,7 @@ public interface AllergenService {
 	public AllergenRegularUser addPersonAllergen(Long regularUserId, Long allergenId)throws RESTError;
 	
 	public AllergenRegularUser deletePersonAllergen(Long id)throws RESTError;
+	
+	public Set<Allergen> viewPersonalallergen (Long id) throws RESTError;
 
 }
