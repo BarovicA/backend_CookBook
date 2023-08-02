@@ -2,10 +2,11 @@ package com.cookbook.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.cookbook.dto.AllergenDTO;
 import com.cookbook.entities.Allergen;
-import com.cookbook.entities.Ingridient;
+import com.cookbook.entities.AllergenRegularUser;
 import com.cookbook.util.RESTError;
 
 public interface AllergenService {
@@ -21,5 +22,11 @@ public interface AllergenService {
 	public List<Allergen>getAllAllergen();
 	
 	List<Allergen> getByName(String name)throws RESTError;
+	
+	public Set<Allergen> allergenFromRecipe (Long id)throws RESTError;
+	
+	public AllergenRegularUser addPersonAllergen(Long regularUserId, Long allergenId)throws RESTError;
+	
+	public AllergenRegularUser deletePersonAllergen(Long id)throws RESTError;
 
 }
