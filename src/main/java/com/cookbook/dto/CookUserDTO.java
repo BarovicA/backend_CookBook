@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public class CookUserDTO {
 	
 	
-	@Column(nullable=false,name="name_student")
+	@Column(nullable=false,name="name_cook")
 	@NotNull(message="First name must be provided")
 	@Size(min=2,max=30, message= "First name must be beetwen {min} and {max} characters long.")
 	private String firstName;

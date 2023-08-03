@@ -46,7 +46,7 @@ public class CookUserImp implements CookUserService {
 	@Override
 	public CookUser deleteCook(Long id) throws RESTError {
 		Optional<CookUser>cook=cookUserRepository.findById(id);
-		if(cook.isEmpty()) {
+		if(cook .isEmpty()) {
 			throw new RESTError(1, "Cook not exists");
 		}	
 		CookUser cookEntity = cook.get();
