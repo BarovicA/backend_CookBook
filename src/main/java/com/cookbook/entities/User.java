@@ -3,6 +3,8 @@ package com.cookbook.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -15,8 +17,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Version;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -55,8 +57,9 @@ public abstract class User {
 	protected String password;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, orphanRemoval = true)
-    private List<UserRole> userRoles = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "role")
+    private Role role;
 	
 	@Column
 	@JsonIgnore
@@ -107,12 +110,14 @@ public abstract class User {
 		this.password = password;
 	}
     
-	public List<UserRole> getUserRoles() {
-		return userRoles;
+
+	public Role getRole() {
+		return role;
 	}
 
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 

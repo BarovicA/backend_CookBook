@@ -28,7 +28,8 @@ public class Role {
 	private RoleENUM name;
 	
 	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserRole> userRoles = new ArrayList<>();
+    private List<User> userRoles = new ArrayList<>();
+
 
 	public Role() {
 	}
@@ -49,13 +50,15 @@ public class Role {
 		this.name = name;
 	}
 
-	public List<UserRole> getUserRoles() {
+	public List<User> getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(List<UserRole> userRoles) {
+	public void setUserRoles(List<User> userRoles) {
 		this.userRoles = userRoles;
 	}
+
+	
 	
 	
 }
