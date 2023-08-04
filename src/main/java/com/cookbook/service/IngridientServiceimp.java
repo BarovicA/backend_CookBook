@@ -2,15 +2,18 @@ package com.cookbook.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookbook.dto.IngridientDTO;
 import com.cookbook.entities.Ingridient;
+import com.cookbook.entities.IngridientRecipe;
+import com.cookbook.entities.Recipe;
 import com.cookbook.mappers.IngridientMapper;
-import com.cookbook.repositories.AllergenRepository;
 import com.cookbook.repositories.IngridientRepository;
+import com.cookbook.repositories.RecipeRepository;
 import com.cookbook.util.RESTError;
 @Service
 public class IngridientServiceimp implements IngridientService {
@@ -19,6 +22,8 @@ public class IngridientServiceimp implements IngridientService {
 	IngridientMapper ingridientMapper;
 	@Autowired
 	IngridientRepository ingridientRepository;
+	@Autowired
+	RecipeRepository recipeRepository;
 
 	@Override
 	public IngridientDTO addIngridien(IngridientDTO ingridient) {
@@ -86,5 +91,23 @@ public class IngridientServiceimp implements IngridientService {
 		return ingridient;
 	}
 
+//	Pretraga svih sastojaka integrisana u pisanje recepta.
+	
+	public List<Ingridient> ingridientFromRecipe (Long id) throws RESTError{
 
+	if(!recipeRepository.existsById(id)) {
+		throw new RESTError(1, "Recipe not exists");
+	}
+	Recipe recipe=recipeRepository.findById(id).get();
+	
+		List<Ingridient> ingridients = recipe.getIngridientRecipe().stream()
+				.map(IngridientRecipe::getIngridient)
+				.collect(Collectors.toList());
+		
+
+		return ingridients;
+		
+	}
+	
+	
 }
