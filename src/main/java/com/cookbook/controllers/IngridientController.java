@@ -95,4 +95,15 @@ public class IngridientController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
+	
+//	Pretraga svih sastojaka integrisana u pisanje recepta.
+
+	@RequestMapping(method = RequestMethod.GET,value = "/ingridient/Recipe/{id}")
+	public ResponseEntity<?> ingridientRecipe(@PathVariable Long id){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.ingridientFromRecipe(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
 }

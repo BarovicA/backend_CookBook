@@ -19,7 +19,9 @@ public interface IngridientService {
 	
 	public List<Ingridient>getAllIngridient();
 	
-	List<Ingridient> getByName(String name)throws RESTError;
+	public List<Ingridient> getByName(String name)throws RESTError;
+	
+	public List<Ingridient> ingridientFromRecipe (Long id) throws RESTError;
 	
 	
 
