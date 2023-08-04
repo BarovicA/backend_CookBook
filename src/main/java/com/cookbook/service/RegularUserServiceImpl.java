@@ -1,5 +1,6 @@
 package com.cookbook.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +72,6 @@ public class RegularUserServiceImpl implements RegularUserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
+}
+		
 }

@@ -71,6 +71,13 @@ public class AllergenRegularUser {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
+
+	public AllergenRegularUser(Allergen allergen, RegularUser regUser, Boolean deleted) {
+		super();
+		this.allergen = allergen;
+		this.regUser = regUser;
+		this.deleted = deleted;
+	}
 	
 	
 	
