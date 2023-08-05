@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.cookbook.dto.IngridientDTO;
 import com.cookbook.entities.Ingridient;
+import com.cookbook.entities.IngridientAllergen;
+import com.cookbook.entities.IngridientRecipe;
 import com.cookbook.util.RESTError;
 
 public interface IngridientService {
@@ -23,6 +25,9 @@ public interface IngridientService {
 	
 	public List<Ingridient> ingridientFromRecipe (Long id) throws RESTError;
 	
+	public IngridientAllergen addIngridientAllergen (Long id_ingridient, Long id_allergen)throws RESTError;
+	
+	public IngridientRecipe addIngridientRecipe (Long id_ingridient, Long id_recipe,Integer quantity)throws RESTError;
 	
 
 }
