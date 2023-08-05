@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.entities.RegularUser;
+import com.cookbook.entities.UserRegularRecipe;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.service.RegularUserService;
 import com.cookbook.validation.Validation;
@@ -82,6 +83,14 @@ public class RegularUserController {
 		public void deleteUser(@PathVariable Long id) {
 			regularUserService.delete(id);
 		}
+		
+		// dodavanje u svoju listu recepata
+		@PostMapping("/{userId}/recipes/{recipeId}")
+	    public ResponseEntity<?> addRecipeToUser(@PathVariable Long userId, @PathVariable Long recipeId) {
+	        regularUserService.addRecipeToUser(userId, recipeId);
+	        
+	        return new ResponseEntity<>("Recipe " + recipeId + " added for user: " + userId, HttpStatus.OK);
+	    }
 	}
 	 
 	
