@@ -6,11 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cookbook.entities.Recipe;
 import com.cookbook.entities.RegularUser;
 import com.cookbook.entities.Role;
+import com.cookbook.entities.UserRegularRecipe;
 import com.cookbook.entities.enums.RoleENUM;
+import com.cookbook.exceptions.ResourceNotFoundException;
+import com.cookbook.repositories.RecipeRepository;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.repositories.RoleRepository;
+import com.cookbook.repositories.UserRegularRecipeRepository;
 
 @Service
 public class RegularUserServiceImpl implements RegularUserService {
@@ -21,7 +26,12 @@ public class RegularUserServiceImpl implements RegularUserService {
 	@Autowired
 	RoleRepository roleRepository;
 	
-
+	@Autowired
+	RecipeRepository recipeRepository;
+	
+	@Autowired
+	UserRegularRecipeRepository userRegularRecipeRepository;
+	
 	@Override
 	public RegularUser createNew(RegularUser newUser) {
 		
@@ -78,6 +88,26 @@ public class RegularUserServiceImpl implements RegularUserService {
 	        throw new IllegalArgumentException("User with id " + id + " does not exist");
 	    }
 	}
+	
+	@Override
+	public UserRegularRecipe addRecipeToUser(Long userId, Long recipeId) {
+		
+        // Pronalazimo korisnika i recept u bazi podataka
+		RegularUser user = userRepository.findById(userId)
+			    .orElseThrow(() -> { throw new ResourceNotFoundException("User", "id ", userId); });
+        Recipe recipe = recipeRepository.findById(recipeId)
+        		.orElseThrow(() -> {throw new ResourceNotFoundException("Recipe", "id ", recipeId); });
+        
+        //  novi UserRegularRecipe
+        UserRegularRecipe userRecipe = new UserRegularRecipe();
+        userRecipe.setUser(user);
+        userRecipe.setRecipe(recipe);
+        
+        
+        return userRegularRecipeRepository.save(userRecipe);
+    }
+	
+	
 }
 		
 
