@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.repositories.IngridientRepository;
@@ -102,6 +103,25 @@ public class IngridientController {
 	public ResponseEntity<?> ingridientRecipe(@PathVariable Long id){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.ingridientFromRecipe(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	// add za srednju tabelu IngridientAllergen
+	@RequestMapping(method = RequestMethod.POST,value = "/addIngridientAllergen")
+	public ResponseEntity<?> ingridientAllergen(@RequestParam Long id_ingridient,@RequestParam Long id_allergen){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.addIngridientAllergen(id_ingridient, id_allergen));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	
+	// add za srednju tabelu IngridientRecipe
+	@RequestMapping(method = RequestMethod.POST,value = "/addIngridientRecipe")
+	public ResponseEntity<?> ingridientRecipe(@RequestParam Long id_ingridient,@RequestParam Long id_recipe,@RequestParam Integer quantity){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.addIngridientRecipe(id_ingridient, id_recipe,quantity));
 		} catch (RESTError e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

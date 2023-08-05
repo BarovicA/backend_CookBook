@@ -37,6 +37,14 @@ public class IngridientAllergen {
 	private Boolean deleted;
 
 	public IngridientAllergen() {
+		
+	}
+
+	public IngridientAllergen(Allergen allergen, Ingridient ingridient, Boolean deleted) {
+		super();
+		this.allergen = allergen;
+		this.ingridient = ingridient;
+		this.deleted = deleted;
 	}
 
 	public Long getId() {
