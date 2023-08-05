@@ -69,9 +69,15 @@ public class RegularUserServiceImpl implements RegularUserService {
     }
 	
 	@Override
-    public void delete(Long id) {
-        userRepository.deleteById(id);
-    }
+	public void delete(Long id) {
+	    RegularUser existingUser = getById(id);
+	    if (existingUser != null) {
+	        existingUser.setDeleted(true);
+	        userRepository.save(existingUser);
+	    } else {
+	        throw new IllegalArgumentException("User with id " + id + " does not exist");
+	    }
+	}
 }
 		
 
