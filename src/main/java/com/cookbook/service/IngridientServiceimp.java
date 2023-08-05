@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookbook.dto.IngridientDTO;
+import com.cookbook.entities.Allergen;
 import com.cookbook.entities.Ingridient;
+import com.cookbook.entities.IngridientAllergen;
 import com.cookbook.entities.IngridientRecipe;
 import com.cookbook.entities.Recipe;
 import com.cookbook.mappers.IngridientMapper;
+import com.cookbook.repositories.AllergenRepository;
+import com.cookbook.repositories.IngridientAllergenRepository;
+import com.cookbook.repositories.IngridientRecipeRepository;
 import com.cookbook.repositories.IngridientRepository;
 import com.cookbook.repositories.RecipeRepository;
 import com.cookbook.util.RESTError;
@@ -24,6 +29,12 @@ public class IngridientServiceimp implements IngridientService {
 	IngridientRepository ingridientRepository;
 	@Autowired
 	RecipeRepository recipeRepository;
+	@Autowired
+	AllergenRepository allergenRepository;
+	@Autowired
+	IngridientAllergenRepository ingridientAllergenRepository;
+	@Autowired
+	IngridientRecipeRepository ingridientRecipeRepository;
 
 	@Override
 	public IngridientDTO addIngridien(IngridientDTO ingridient) {
@@ -107,6 +118,39 @@ public class IngridientServiceimp implements IngridientService {
 
 		return ingridients;
 		
+	}
+// add za srednju tabelu IngridientAllergen
+	@Override
+	public IngridientAllergen addIngridientAllergen(Long id_ingridient, Long id_allergen) throws RESTError {
+		if(!ingridientRepository.existsById(id_ingridient)) {
+			throw new RESTError(1, "Ingridient not exists");
+		}
+		Ingridient ingridient=ingridientRepository.findById(id_ingridient).get();
+		
+		if(!allergenRepository.existsById(id_allergen)) {
+			throw new RESTError(1, "Allergen not exists");
+		}
+		Allergen allergen= allergenRepository.findById(id_allergen).get();
+		
+		IngridientAllergen ingridientAllergen= new IngridientAllergen(allergen,ingridient,false);
+		return ingridientAllergenRepository.save(ingridientAllergen);
+	}
+// add za srednju tabelu IngridientRecipe
+	@Override
+	public IngridientRecipe addIngridientRecipe(Long id_ingridient, Long id_recipe,Integer quantity) throws RESTError {
+	
+		if(!ingridientRepository.existsById(id_ingridient)) {
+			throw new RESTError(1, "Ingridient not exists");
+		}
+		Ingridient ingridient=ingridientRepository.findById(id_ingridient).get();
+		
+		if(!recipeRepository.existsById(id_recipe)) {
+			throw new RESTError(1, "Recipe not exists");
+		}
+		Recipe recipe=recipeRepository.findById(id_recipe).get();
+		
+		IngridientRecipe ingridientRecipe= new IngridientRecipe(quantity,recipe,ingridient,false);
+		return ingridientRecipeRepository.save(ingridientRecipe);
 	}
 	
 	

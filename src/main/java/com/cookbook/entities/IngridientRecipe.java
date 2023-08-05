@@ -39,6 +39,18 @@ public class IngridientRecipe {
 	@Version
 	@JsonIgnore
 	private Integer version;
+	
+	
+
+	
+
+	public IngridientRecipe(Integer quantity, Recipe recipe, Ingridient ingridient, Boolean deleted) {
+		super();
+		this.quantity = quantity;
+		this.recipe = recipe;
+		this.ingridient = ingridient;
+		this.deleted = deleted;
+	}
 
 	public IngridientRecipe() {
 	}
