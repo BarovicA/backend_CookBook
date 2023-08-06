@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.cookbook.dto.CookUserDTO;
 import com.cookbook.entities.CookUser;
+import com.cookbook.entities.Role;
+import com.cookbook.entities.enums.RoleENUM;
 import com.cookbook.mappers.CookUserMapper;
 import com.cookbook.repositories.CookUserRepository;
+import com.cookbook.repositories.RoleRepository;
 import com.cookbook.util.RESTError;
 @Service
 public class CookUserImp implements CookUserService {
@@ -18,11 +21,22 @@ public class CookUserImp implements CookUserService {
 	
 	@Autowired
 	CookUserMapper cookUserMapper;
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Override
-	public CookUserDTO addCook(CookUserDTO CookUser) {
-		
-		return cookUserMapper.toDto(cookUserRepository.save(cookUserMapper.toEntity(CookUser)));
+	public CookUserDTO addCook(CookUserDTO CookUser) throws RESTError {
+		CookUser c = new CookUser();
+		Role r=roleRepository.findByName(RoleENUM.COOK_USER);
+		 if(r == null) {
+		        throw new RESTError(1,"Role does not exist in the database");
+		 }
+		c.setFirstName(CookUser.getFirstName());
+		c.setLastName(CookUser.getLastName());
+		c.setUsername(CookUser.getUsername());
+		c.setPassword(CookUser.getPassword());
+		c.setRole(r);
+		return cookUserMapper.toDto(cookUserRepository.save(c));
 	}
 
 	@Override

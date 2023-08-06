@@ -158,7 +158,7 @@ public class AllergenServiceImpl implements AllergenService {
 	}
 	
 //	Prikaz liste ličnih alergena/OF
-	
+	@Override
 	public Set<Allergen> viewPersonalallergen (Long id) throws RESTError{
 		
 	if(regularUserRepository.findById(id).isEmpty()) {
@@ -169,5 +169,22 @@ public class AllergenServiceImpl implements AllergenService {
 				.map(AllergenRegularUser::getAllergen)
 				.collect(Collectors.toSet());
 		return allergens;
+	}
+	
+//	Moji alergeni
+	@Override
+	public AllergenRegularUser addAllergenRegularUser(Long allergen_id,Long regularUser_id)throws RESTError{
+		if(regularUserRepository.findById(regularUser_id).isEmpty()) {
+			throw new RESTError(1, "User not exists");
+		}
+		RegularUser user=regularUserRepository.findById(regularUser_id).get();
+		
+		if(allergenRepository.findById(allergen_id).isEmpty()) {
+			throw new RESTError(1, "allergen not exists");
+		}
+		Allergen allergen=allergenRepository.findById(allergen_id).get();
+		
+		AllergenRegularUser allergenRegularUser= new AllergenRegularUser(allergen,user,false);
+		return allergenRegularUserRepository.save(allergenRegularUser);
 	}
 }
