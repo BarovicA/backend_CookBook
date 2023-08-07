@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cookbook.dto.AdminUserDTO;
 import com.cookbook.dto.RegularUserDTO;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.service.RegularUserService;
@@ -35,15 +36,17 @@ public class RegularUserController {
 	    }
 
 	    @RequestMapping(method = RequestMethod.POST)
-	    public ResponseEntity<?> addRegularUser(@Valid @RequestBody RegularUserDTO regularUser, BindingResult result) throws RESTError {
-	        if (result.hasErrors()) {
-	            return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
-	        }
-	        return new ResponseEntity<>(regularUserService.addRegularUser(regularUser), HttpStatus.OK);
-	    }
+	    public ResponseEntity<?> addRegularUser(@RequestBody RegularUserDTO regularUser, BindingResult result) throws RESTError {
+	    	 System.out.println(regularUser.getFirstName() + regularUser.getLastName()+ regularUser.getPassword()+regularUser.getUsername());
+	    	 RegularUserDTO  RegularUser = regularUserService.addRegularUser(regularUser);
+	    	 if (result.hasErrors()) {
+	             return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
+	         }
+	         return new ResponseEntity<>(regularUser, HttpStatus.OK);
+	     }
 
 	    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-	    public ResponseEntity<?> modifyRegularUser(@PathVariable Long id, @Valid @RequestBody RegularUserDTO regularUser, BindingResult result) {
+	    public ResponseEntity<?> modifyRegularUser(@PathVariable Long id,  @RequestBody RegularUserDTO regularUser, BindingResult result) {
 	        try {
 	            if (result.hasErrors()) {
 	                return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);

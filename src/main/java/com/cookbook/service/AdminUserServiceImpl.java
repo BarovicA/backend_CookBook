@@ -48,12 +48,19 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public AdminUserDTO getAdminUserById(Long id) {
 	    java.util.Optional<AdminUser> adminUserOptional = adminUserRepository.findById(id);
+	    
 	    if (adminUserOptional.isEmpty()) {
 	       
 	        return null;
 	    }
 	    
 	    AdminUser adminUserEntity = adminUserOptional.get();
+	    
+	    if (adminUserEntity.getDeleted()) {
+	    	
+	    	return null;
+	    }
+	    
 	    return adminUserMapper.toDto(adminUserEntity);
 	}
 	@Override

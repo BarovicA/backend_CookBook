@@ -3,6 +3,8 @@ package com.cookbook.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cookbook.dto.AdminUserDTO;
+import com.cookbook.dto.CookUserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,35 +26,44 @@ import jakarta.validation.constraints.Size;
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class CookUser extends User  {
 	
-
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//
+//	
+	//@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column
-	@NotNull(message = "Firstname must be included.")
-	@Size(min=2,max = 30, message= "Firstname must be beetwen {min} and {max} characters long.")
-	protected String firstName;
-	
-	@Column
-	@NotNull(message = "Lastname must be included.")
-	@Size(min=2,max = 30, message= "Lastname must be beetwen {min} and {max} characters long.")
-	protected String lastName;
-	
-	
-	@Column
-	@NotNull(message = "Username must be included.")
-	@Size(min=5, max = 20, message= "Username must be beetwen {min} and {max} characters long.")
-	protected String username;
-	
-	
-	@Column
-	@NotNull(message = "Password must be included.")
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number")
-	@Size(min=6, max = 30, message= "Password must be beetwen {min} and {max} characters long.")
-	protected String password;
-	
+public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	//	
+//	@Column
+//	@NotNull(message = "Firstname must be included.")
+//	@Size(min=2,max = 30, message= "Firstname must be beetwen {min} and {max} characters long.")
+//	protected String firstName;
+//	
+//	@Column
+//	@NotNull(message = "Lastname must be included.")
+//	@Size(min=2,max = 30, message= "Lastname must be beetwen {min} and {max} characters long.")
+//	protected String lastName;
+//	
+//	
+//	@Column
+//	@NotNull(message = "Username must be included.")
+//	@Size(min=5, max = 20, message= "Username must be beetwen {min} and {max} characters long.")
+//	protected String username;
+//	
+//	
+//	@Column
+//	@NotNull(message = "Password must be included.")
+//	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number")
+//	@Size(min=6, max = 30, message= "Password must be beetwen {min} and {max} characters long.")
+//	protected String password;
+//	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cook", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
@@ -78,13 +89,15 @@ public class CookUser extends User  {
 
 
 	public CookUser(Long id,
-			@NotNull(message = "Firstname must be included.") @Size(min = 2, max = 30, message = "Firstname must be beetwen {min} and {max} characters long.") String firstName,
-			@NotNull(message = "Lastname must be included.") @Size(min = 2, max = 30, message = "Lastname must be beetwen {min} and {max} characters long.") String lastName,
-			@NotNull(message = "Username must be included.") @Size(min = 5, max = 20, message = "Username must be beetwen {min} and {max} characters long.") String username,
-			@NotNull(message = "Password must be included.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number") @Size(min = 6, max = 30, message = "Password must be beetwen {min} and {max} characters long.") String password,
+			//@NotNull(message = "Firstname must be included.") @Size(min = 2, max = 30, message = "Firstname must be beetwen {min} and {max} characters long.") 
+			String firstName,
+			//@NotNull(message = "Lastname must be included.") @Size(min = 2, max = 30, message = "Lastname must be beetwen {min} and {max} characters long.") 
+			String lastName,
+			//@NotNull(message = "Username must be included.") @Size(min = 5, max = 20, message = "Username must be beetwen {min} and {max} characters long.") 
+			String username,
+			//@NotNull(message = "Password must be included.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number") @Size(min = 6, max = 30, message = "Password must be beetwen {min} and {max} characters long.") String password,
 			List<UserRole> userRoles, Boolean deleted, List<com.cookbook.entities.Recipe> recipe) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
@@ -95,14 +108,14 @@ public class CookUser extends User  {
 	}
 
 
-	public Long getId() {
-		return id;
-	}
+//	public Long getId() {
+//		return id;
+	//}
 
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 
 	public String getFirstName() {
@@ -182,9 +195,12 @@ public class CookUser extends User  {
 
 	}
 	
+	public CookUser(CookUserDTO cookUserDTO) {
+		this.firstName = cookUserDTO.getFirstName();
+		this.lastName = cookUserDTO.getLastName();
+		this.username = cookUserDTO.getUsername();
+		this.password = cookUserDTO.getPassword();
+	}
 
-	
 
-	
-	    
 }

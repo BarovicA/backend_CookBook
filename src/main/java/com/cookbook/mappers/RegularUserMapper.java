@@ -14,12 +14,12 @@ public class RegularUserMapper implements GenericMapper<RegularUser, RegularUser
 	
 	@Override
     public RegularUser toEntity(RegularUserDTO dto) {
-        return new RegularUser(dto.getFirstName(), dto.getLastName(), dto.getUsername(), dto.getPassword());
+        return new RegularUser(dto);
     }
 
     @Override
     public RegularUserDTO toDto(RegularUser entity) {
-        return new RegularUserDTO(entity.getFirstName(), entity.getLastName(), entity.getUsername(), entity.getPassword());
+        return new RegularUserDTO(entity);
     }
 	
     

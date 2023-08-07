@@ -1,16 +1,5 @@
 package com.cookbook.service;
 
-<<<<<<< Updated upstream
-
-import org.springframework.stereotype.Service;
-
-
-
-@Service
-public class RegularUserServiceImpl implements RegularUserService {
-		
-}
-=======
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +71,3 @@ public class RegularUserServiceImpl implements RegularUserService {
 	}
 
 	    
-
->>>>>>> Stashed changes

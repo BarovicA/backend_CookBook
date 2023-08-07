@@ -164,10 +164,10 @@ public class AllergenServiceImpl implements AllergenService {
 	if(regularUserRepository.findById(id).isEmpty()) {
 		throw new RESTError(1, "User not exists");
 	}
-	RegularUser user=regularUserRepository.findById(id).get();
-		Set<Allergen> allergens = user.getAllergenRegularUser().stream()
-				.map(AllergenRegularUser::getAllergen)
-				.collect(Collectors.toSet());
-		return allergens;
+//	RegularUser user=regularUserRepository.findById(id).get();
+//		Set<Allergen> allergens = user.getAllergenRegularUser().stream()
+//				.map(AllergenRegularUser::getAllergen)
+//				.collect(Collectors.toSet());
+		return null;
 	}
 }

@@ -7,20 +7,20 @@ import jakarta.validation.constraints.Size;
 public class UserDTO {
 	
 	
-	@NotNull(message = "Firstname must be provided")
-	@Size(min=2, max=20, message = "Name must be between {min} and {max} characters long.")
+	//@NotNull(message = "Firstname must be provided")
+	//@Size(min=2, max=20, message = "Name must be between {min} and {max} characters long.")
 	protected String firstName;
 	
-	@NotNull(message = "Lastname must be provided")
-	@Size(min=2, max=20, message = "Name must be between {min} and {max} characters long.")
+	//@NotNull(message = "Lastname must be provided")
+	//@Size(min=2, max=20, message = "Name must be between {min} and {max} characters long.")
 	protected String lastName;
 	
-	@NotNull(message = "Username must be provided")
-	@Size(min=5, max=20, message = "Name must be between {min} and {max} characters long.")
+	//@NotNull(message = "Username must be provided")
+	//@Size(min=5, max=20, message = "Name must be between {min} and {max} characters long.")
 	protected String username;
 	
-	@NotNull(message = "Password must be provided")
-	@Size(min=6, max=30, message = "Name must be between {min} and {max} characters long.")
+	//@NotNull(message = "Password must be provided")
+	//@Size(min=6, max=30, message = "Name must be between {min} and {max} characters long.")
 	protected String password;
 	
 	
@@ -60,5 +60,24 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public UserDTO(
+			//@NotNull(message = "Firstname must be provided") @Size(min = 2, max = 20, message = "Name must be between {min} and {max} characters long.")
+			String firstName,
+			//@NotNull(message = "Lastname must be provided") @Size(min = 2, max = 20, message = "Name must be between {min} and {max} characters long.") 
+			String lastName,
+			//@NotNull(message = "Username must be provided") @Size(min = 5, max = 20, message = "Name must be between {min} and {max} characters long.") 
+			String username,
+			//@NotNull(message = "Password must be provided") @Size(min = 6, max = 30, message = "Name must be between {min} and {max} characters long.") 
+			String password) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+	}
+	
+	
 
 }

@@ -1,25 +1,28 @@
 package com.cookbook.dto;
 
+import com.cookbook.entities.AdminUser;
+import com.cookbook.entities.RegularUser;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class RegularUserDTO {
 	
-    @NotNull(message = "Firstname must be provided")
-    @Size
-    (min = 2, max = 20, message = "Name must be between {min} and {max} characters long.")
+//    @NotNull(message = "Firstname must be provided")
+//    @Size
+//    (min = 2, max = 20, message = "Name must be between {min} and {max} characters long.")
     protected String firstName;
 
-    @NotNull(message = "Lastname must be provided")
-    @Size(min = 2, max = 20, message = "Name must be between {min} and {max} characters long.")
+//    @NotNull(message = "Lastname must be provided")
+//    @Size(min = 2, max = 20, message = "Name must be between {min} and {max} characters long.")
     protected String lastName;
 
-    @NotNull(message = "Username must be provided")
-    @Size(min = 5, max = 20, message = "Name must be between {min} and {max} characters long.")
+//    @NotNull(message = "Username must be provided")
+//    @Size(min = 5, max = 20, message = "Name must be between {min} and {max} characters long.")
     protected String username;
 
-    @NotNull(message = "Password must be provided")
-    @Size(min = 6, max = 30, message = "Name must be between {min} and {max} characters long.")
+//    @NotNull(message = "Password must be provided")
+//    @Size(min = 6, max = 30, message = "Name must be between {min} and {max} characters long.")
     protected String password;
 
     public RegularUserDTO() {
@@ -63,6 +66,15 @@ public class RegularUserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public RegularUserDTO(RegularUser regularUser) {
+    	this.firstName = regularUser.getFirstName();
+		this.lastName = regularUser.getLastName();
+		this.username = regularUser.getUsername();
+		this.password = regularUser.getPassword();
+		//this.id= regularUser.getId();
+    	
     }
 
     
