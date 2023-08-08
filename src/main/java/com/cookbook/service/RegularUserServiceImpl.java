@@ -66,7 +66,7 @@ public class RegularUserServiceImpl implements RegularUserService {
         return userRepository.findByDeletedFalseAndUsernameIgnoreCaseContaining(username).orElse(null); 
     }
 	@Override
-    public RegularUser update(Long id, RegularUser updatedUser) {
+    public RegularUser update(Long id, RegularUserDTO updatedUser) {
         RegularUser existingUser = getById(id);
         if (existingUser != null) {
             

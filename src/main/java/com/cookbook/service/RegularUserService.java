@@ -16,7 +16,7 @@ public interface RegularUserService {
 
 	RegularUser getByUsername(String username);
 
-	RegularUser update(Long id, RegularUser updatedUser);
+	RegularUser update(Long id, RegularUserDTO updatedUser);
 
 	List<RegularUser> getAll();
 

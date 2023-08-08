@@ -73,7 +73,7 @@ public class RegularUserController {
 		// Azuriranje korisnika
 		@PutMapping("/{id}")
 		@Secured("ADMIN_USER")
-		public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody RegularUser updatedUser,  BindingResult result) {
+		public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody RegularUserDTO updatedUser,  BindingResult result) {
 			if (result.hasErrors()) {
 				return new ResponseEntity<>(Validation.createErrorMessage(result), HttpStatus.BAD_REQUEST);
 			} else {
