@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,6 +24,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "User_Type")
+
 public abstract class User {
 
 	@Id
@@ -39,6 +41,7 @@ public abstract class User {
 	protected String username;
 
 	@Column
+	//@JsonIgnore
 	protected String password;
 
 	@JsonIgnore

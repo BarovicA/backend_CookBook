@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.dto.AdminUserDTO;
 import com.cookbook.dto.RegularUserDTO;
+import com.cookbook.entities.AdminUser;
+import com.cookbook.entities.RegularUser;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.service.RegularUserService;
 import com.cookbook.util.RESTError;
@@ -35,7 +37,7 @@ public class RegularUserController {
 	        return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" "));
 	    }
 
-	    @RequestMapping(method = RequestMethod.POST)
+	    @RequestMapping(method = RequestMethod.POST,value = "/add")
 	    public ResponseEntity<?> addRegularUser(@RequestBody RegularUserDTO regularUser, BindingResult result) throws RESTError {
 	    	 System.out.println(regularUser.getFirstName() + regularUser.getLastName()+ regularUser.getPassword()+regularUser.getUsername());
 	    	 RegularUserDTO  RegularUser = regularUserService.addRegularUser(regularUser);
@@ -58,14 +60,31 @@ public class RegularUserController {
 	        }
 	    }
 
+//	    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+//	    public ResponseEntity<?> removeRegularUser(@PathVariable Long id) {
+//	        try {
+//	            return ResponseEntity.status(HttpStatus.OK).body(regularUserService.deleteRegularUser(id));
+//	        } catch (RESTError e) {
+//	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//	        }
+//	    }
+
 	    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	    public ResponseEntity<?> removeRegularUser(@PathVariable Long id) {
-	        try {
-	            return ResponseEntity.status(HttpStatus.OK).body(regularUserService.deleteRegularUser(id));
+	    public ResponseEntity<?> deleteRegularUser(@PathVariable Long id) {
+	        try 
+	        {
+	            
+	        	RegularUser deletedRegularUser= regularUserService.deleteRegularUser(id);
+	           
+	        	if (deletedRegularUser==null) {
+	        		return ResponseEntity.ok("Admin user not found");
+		        } else {
+		        	return ResponseEntity.ok("Admin user not exsist");
+		        } 
+	            		
 	        } catch (RESTError e) {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	        }
 	    }
-
 	
 }

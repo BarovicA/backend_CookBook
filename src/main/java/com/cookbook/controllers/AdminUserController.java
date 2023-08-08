@@ -34,7 +34,7 @@ public class AdminUserController {
 		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" "));
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/sasa")
+	@RequestMapping(method = RequestMethod.POST, value = "/add")
 	public ResponseEntity<?> addAdminUser(@RequestBody AdminUserDTO adminUser, BindingResult result) throws RESTError {
 		System.out.println(
 				adminUser.getFirstName() + adminUser.getLastName() + adminUser.getPassword() + adminUser.getUsername());
