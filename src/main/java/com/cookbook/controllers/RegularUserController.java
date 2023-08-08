@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cookbook.dto.RegularUserDTO;
 import com.cookbook.entities.RegularUser;
-import com.cookbook.entities.UserRegularRecipe;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.service.RegularUserService;
 import com.cookbook.validation.Validation;
@@ -42,7 +43,8 @@ public class RegularUserController {
 
 		// Kreiranje novog korisnika
 		@PostMapping("/create")
-		public ResponseEntity<?> addNewUser(@Valid @RequestBody RegularUser newUser, BindingResult result) {
+		@Secured("ADMIN_USER")
+		public ResponseEntity<?> addNewUser(@Valid @RequestBody RegularUserDTO newUser, BindingResult result) {
 			if (result.hasErrors()) {
 				return new ResponseEntity<>(Validation.createErrorMessage(result), HttpStatus.BAD_REQUEST);
 			} else {
@@ -70,6 +72,7 @@ public class RegularUserController {
 
 		// Azuriranje korisnika
 		@PutMapping("/{id}")
+		@Secured("ADMIN_USER")
 		public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody RegularUser updatedUser,  BindingResult result) {
 			if (result.hasErrors()) {
 				return new ResponseEntity<>(Validation.createErrorMessage(result), HttpStatus.BAD_REQUEST);
@@ -80,12 +83,14 @@ public class RegularUserController {
 
 		// Brisanje korisnika
 		@DeleteMapping("/{id}")
+		@Secured("ADMIN_USER")
 		public void deleteUser(@PathVariable Long id) {
 			regularUserService.delete(id);
 		}
 		
 		// dodavanje u svoju listu recepata
 		@PostMapping("/{userId}/recipes/{recipeId}")
+		@Secured("REGULAR_USER")
 	    public ResponseEntity<?> addRecipeToUser(@PathVariable Long userId, @PathVariable Long recipeId) {
 	        regularUserService.addRecipeToUser(userId, recipeId);
 	        

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cookbook.dto.RegularUserDTO;
 import com.cookbook.entities.Recipe;
 import com.cookbook.entities.RegularUser;
 import com.cookbook.entities.Role;
@@ -16,6 +17,7 @@ import com.cookbook.repositories.RecipeRepository;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.repositories.RoleRepository;
 import com.cookbook.repositories.UserRegularRecipeRepository;
+import com.cookbook.util.Encryption;
 
 @Service
 public class RegularUserServiceImpl implements RegularUserService {
@@ -33,13 +35,13 @@ public class RegularUserServiceImpl implements RegularUserService {
 	UserRegularRecipeRepository userRegularRecipeRepository;
 	
 	@Override
-	public RegularUser createNew(RegularUser newUser) {
+	public RegularUser createNew(RegularUserDTO newUser) {
 		
 	    RegularUser user = new RegularUser();
 	    user.setFirstName(newUser.getFirstName());
 	    user.setLastName(newUser.getLastName());
 	    user.setUsername(newUser.getUsername());
-	    user.setPassword(newUser.getPassword());
+	    user.setPassword(Encryption.getPassEncoded(newUser.getPassword()));
 	    // preuzimanje Role
 	    Role role = roleRepository.findByName(RoleENUM.REGULAR_USER);
 	    if(role == null) {
@@ -69,7 +71,7 @@ public class RegularUserServiceImpl implements RegularUserService {
         if (existingUser != null) {
             
             existingUser.setUsername(updatedUser.getUsername());
-            existingUser.setPassword(updatedUser.getPassword());
+            existingUser.setPassword(Encryption.getPassEncoded(updatedUser.getPassword()));
             // ...
             return userRepository.save(existingUser);
         } else {

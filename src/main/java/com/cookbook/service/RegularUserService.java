@@ -2,12 +2,13 @@ package com.cookbook.service;
 
 import java.util.List;
 
+import com.cookbook.dto.RegularUserDTO;
 import com.cookbook.entities.RegularUser;
 import com.cookbook.entities.UserRegularRecipe;
 
 public interface RegularUserService {
 
-	RegularUser createNew(RegularUser newUser);
+	RegularUser createNew(RegularUserDTO newUser);
 
 	void delete(Long id);
 

@@ -12,6 +12,7 @@ import com.cookbook.entities.enums.RoleENUM;
 import com.cookbook.mappers.CookUserMapper;
 import com.cookbook.repositories.CookUserRepository;
 import com.cookbook.repositories.RoleRepository;
+import com.cookbook.util.Encryption;
 import com.cookbook.util.RESTError;
 @Service
 public class CookUserImp implements CookUserService {
@@ -34,7 +35,7 @@ public class CookUserImp implements CookUserService {
 		c.setFirstName(CookUser.getFirstName());
 		c.setLastName(CookUser.getLastName());
 		c.setUsername(CookUser.getUsername());
-		c.setPassword(CookUser.getPassword());
+		c.setPassword(Encryption.getPassEncoded(CookUser.getPassword()));
 		c.setRole(r);
 		return cookUserMapper.toDto(cookUserRepository.save(c));
 	}
@@ -49,7 +50,7 @@ public class CookUserImp implements CookUserService {
 		existingCook.setFirstName(cook.getFirstName());
 		existingCook.setLastName(cook.getLastName());
 		existingCook.setUsername(cook.getUsername());
-		existingCook.setPassword(cook.getPassword());
+		existingCook.setPassword(Encryption.getPassEncoded(cook.getPassword()));
 		
 		
 		

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ public class IngridientController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> addIngridient(@Valid @RequestBody IngridientDTO ingridient,BindingResult result)  {
 		
 		if(result.hasErrors()) {
@@ -48,6 +50,7 @@ public class IngridientController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?>modifyIngridient(@PathVariable Long id,@Valid @RequestBody IngridientDTO ingridient, BindingResult result){
 		try {
 			if(result.hasErrors()) {
@@ -61,6 +64,7 @@ public class IngridientController {
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> removeIngridient(@PathVariable Long id) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.deleteIngridien(id));
@@ -109,6 +113,7 @@ public class IngridientController {
 	}
 	// add za srednju tabelu IngridientAllergen
 	@RequestMapping(method = RequestMethod.POST,value = "/addIngridientAllergen")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> ingridientAllergen(@RequestParam Long id_ingridient,@RequestParam Long id_allergen){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.addIngridientAllergen(id_ingridient, id_allergen));
@@ -119,6 +124,7 @@ public class IngridientController {
 	
 	// add za srednju tabelu IngridientRecipe
 	@RequestMapping(method = RequestMethod.POST,value = "/addIngridientRecipe")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> ingridientRecipe(@RequestParam Long id_ingridient,@RequestParam Long id_recipe,@RequestParam Integer quantity){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(ingridientService.addIngridientRecipe(id_ingridient, id_recipe,quantity));

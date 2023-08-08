@@ -42,23 +42,26 @@ public class AllergenServiceImpl implements AllergenService {
 	@Override
 	public AllergenDTO addAllergen(AllergenDTO allergen) {
 		
-		allergen.setDeleted(false);
-		return allergenMapper.toDto(allergenRepository.save(allergenMapper.toEntity(allergen)));
+		Allergen allergen2= new Allergen();
+		allergen2.setName(allergen.getName());
+		allergen2.setIcon(allergen.getIcon());		
+		allergen2.setDeleted(false);
+		return allergenMapper.toDto(allergenRepository.save(allergen2));
 		
 	}
 
 	@Override
 
-	public AllergenDTO modifyAllergen(Long id, AllergenDTO allergenDTO) throws RESTError {
+	public AllergenDTO modifyAllergen(Long id, AllergenDTO allergen) throws RESTError {
 	    if (!allergenRepository.existsById(id)) {
 	        throw new RESTError(1, "Allergen with the given id does not exist.");
 	    }
 	   	  
 	    Allergen existingAllergen = allergenRepository.findById(id).get();
 	    
-	    existingAllergen.setName(allergenDTO.getName());
-	    existingAllergen.setIcon(allergenDTO.getIcon());
-	    existingAllergen.setDeleted(allergenDTO.getDeleted());
+	    existingAllergen.setName(allergen.getName());
+	    existingAllergen.setIcon(allergen.getIcon());
+	    existingAllergen.setDeleted(allergen.getDeleted());
 	   
 	    Allergen savedAllergen = allergenRepository.save(existingAllergen);
 	 
