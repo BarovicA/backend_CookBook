@@ -53,7 +53,7 @@ public class RegularUserServiceImpl implements RegularUserService {
 	
 	@Override
     public List<RegularUser> getAll() {
-        return userRepository.findAll();
+        return userRepository.findByDeletedFalse();
     }
 	@Override
     public RegularUser getById(Long id) {
