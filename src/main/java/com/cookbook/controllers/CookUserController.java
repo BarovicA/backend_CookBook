@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class CookUserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> addCook(@Valid @RequestBody CookUserDTO cook,BindingResult result) throws RESTError  {
 		
 		if(result.hasErrors()) {
@@ -43,6 +45,7 @@ public class CookUserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?>modifyCook(@PathVariable Long id,@Valid @RequestBody CookUserDTO cook, BindingResult result){
 		try {
 			if(result.hasErrors()) {
@@ -56,7 +59,9 @@ public class CookUserController {
 	}
 		
 		@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+		@Secured("ADMIN_USER")
 		public ResponseEntity<?> deleteCook(@PathVariable Long id) {
+
 			try {
 				cookUserService.deleteCook(id);
 				return ResponseEntity.ok("Admin user deleted successfully");

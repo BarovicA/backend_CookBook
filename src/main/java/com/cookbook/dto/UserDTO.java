@@ -1,64 +1,24 @@
 package com.cookbook.dto;
 
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 
 public class UserDTO {
 	
 	
-	@NotNull(message = "Firstname must be provided")
-	@Size(min=2, max=20, message = "Name must be between {min} and {max} characters long.")
-	protected String firstName;
-	
-	@NotNull(message = "Lastname must be provided")
-	@Size(min=2, max=20, message = "Name must be between {min} and {max} characters long.")
-	protected String lastName;
-	
-	@NotNull(message = "Username must be provided")
-	@Size(min=5, max=20, message = "Name must be between {min} and {max} characters long.")
-	protected String username;
-	
-	@NotNull(message = "Password must be provided")
-	@Size(min=6, max=30, message = "Name must be between {min} and {max} characters long.")
-	protected String password;
-	
-	
-	public UserDTO() {
-		super();
+	private String user;
+	private String token;
+	public String getUser() {
+	return user;
 	}
-
-
-	public String getFirstName() {
-		return firstName;
+	public void setUser(String user) {
+	this.user = user;
 	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getToken() {
+	return token;
 	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setToken(String token) {
+	this.token = token;
 	}
 
 }

@@ -6,7 +6,7 @@ import com.cookbook.util.RESTError;
 
 public interface CookUserService {
 	
-	public CookUserDTO addCook(CookUserDTO CookUser);
+	public CookUserDTO addCook(CookUserDTO CookUser) throws RESTError;
 	
 	public CookUserDTO modifyCook(Long id, CookUserDTO cook)throws RESTError;
 	

@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import com.cookbook.util.RESTError;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path = "/api/v1/allergen")
 public class AllergenController {
@@ -39,6 +42,7 @@ public class AllergenController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> addAllergen(@Valid @RequestBody AllergenDTO allergen,BindingResult result)  {
 		
 		if(result.hasErrors()) {
@@ -48,6 +52,7 @@ public class AllergenController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?>modifyAllergen(@PathVariable Long id,@Valid @RequestBody AllergenDTO allergen, BindingResult result){
 		try {
 			if(result.hasErrors()) {
@@ -61,6 +66,7 @@ public class AllergenController {
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	@Secured("ADMIN_USER")
 	public ResponseEntity<?> removeAllergen(@PathVariable Long id) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(allergenService.deleteAllergen(id));
@@ -108,9 +114,10 @@ public class AllergenController {
 //	Dodavanje ličnih alergena/ograničavajućih faktora (OF)
 
 	@RequestMapping(method = RequestMethod.POST,value = "/personalAllergen")
+	@Secured({"REGULAR_USER","ADMIN_USER"})
 	public ResponseEntity<?>addPersonAllergen(@RequestParam Long allergenId,@RequestParam Long regularId ){
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(allergenService.addPersonAllergen(allergenId,regularId));
+			return ResponseEntity.status(HttpStatus.OK).body(allergenService.addPersonAllergen(regularId,allergenId));
 		} catch (RESTError e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -119,6 +126,7 @@ public class AllergenController {
 //	Brisanje ličnih alergena/OF
 	
 	@RequestMapping(method = RequestMethod.DELETE,value = "/deletePersonalAllergen/{id}")
+	@Secured({"REGULAR_USER","ADMIN_USER"})
 	public ResponseEntity<?>deletePersonAllergen(@PathVariable Long id){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(allergenService.deletePersonAllergen(id));
@@ -128,9 +136,20 @@ public class AllergenController {
 	}
 //	Prikaz liste ličnih alergena/OF
 	@RequestMapping(method = RequestMethod.GET,value = "/PersonalAllergen/{id}")
+	@Secured({"REGULAR_USER","ADMIN_USER"})
 	public ResponseEntity<?>viewersonAllergen(@PathVariable Long id){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(allergenService.viewPersonalallergen(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+//	moji alergeni
+	@RequestMapping(method = RequestMethod.POST,value = "/addAllergenRegularUser")
+	@Secured({"REGULAR_USER","ADMIN_USER"})
+	public ResponseEntity<?>addAllergenRegularUser(@RequestParam long allergen_id,@RequestParam Long regularUser_id){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(allergenService.addAllergenRegularUser(allergen_id,regularUser_id));
 		} catch (RESTError e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +38,7 @@ public class RecipeController {
 
 	// Kreiranje novog recepta
 	@PostMapping("/create")
+	@Secured({"COOK_USER","ADMIN_USER"})
 	public ResponseEntity<?> addNewRecipe(@Valid @RequestBody Recipe newSubject, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ResponseEntity<>(Validation.createErrorMessage(result), HttpStatus.BAD_REQUEST);
@@ -65,12 +67,14 @@ public class RecipeController {
 
 	// Azuriranje recepta
 	@PutMapping("/{id}")
+	@Secured({"COOK_USER","ADMIN_USER"})
 	public Recipe updateRecipe(@PathVariable Long id, @Valid @RequestBody Recipe updatedRecipe) {
 		return recipeService.update(id, updatedRecipe);
 	}
 
 	// Brisanje recepta
 	@DeleteMapping("/{id}")
+	@Secured({"COOK_USER","ADMIN_USER"})
 	public void deleteRecipe(@PathVariable Long id) {
 		recipeService.delete(id);
 	}

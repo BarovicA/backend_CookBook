@@ -1,10 +1,5 @@
 package com.cookbook.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -20,11 +15,6 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "User_Type")
@@ -36,26 +26,17 @@ public abstract class User {
 	private Long id;
 	
 	@Column
-	@NotNull(message = "Firstname must be included.")
-	@Size(min=2,max = 30, message= "Firstname must be beetwen {min} and {max} characters long.")
 	protected String firstName;
 	
 	@Column
-	@NotNull(message = "Lastname must be included.")
-	@Size(min=2,max = 30, message= "Lastname must be beetwen {min} and {max} characters long.")
 	protected String lastName;
 	
 	
 	@Column
-	@NotNull(message = "Username must be included.")
-	@Size(min=5, max = 20, message= "Username must be beetwen {min} and {max} characters long.")
 	protected String username;
 	
 	
 	@Column
-	@NotNull(message = "Password must be included.")
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number")
-	@Size(min=6, max = 30, message= "Password must be beetwen {min} and {max} characters long.")
 	protected String password;
 	
 	@JsonIgnore
