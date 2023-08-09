@@ -4,6 +4,9 @@ import com.cookbook.entities.CookUser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class CookUserDTO {
 	
@@ -22,15 +25,15 @@ public class CookUserDTO {
 	@JsonProperty("lastname")
 	private String lastName;
 	
-	//@Column(nullable=false, unique = true)
-//	@NotNull(message="username must be provided")
-//	@Size(min=5,max=20, message= "username must be beetwen {min} and {max} characters long.")
+	
+	@NotNull(message = "Username must be included.")
+	@Size(min=5, max = 20, message= "Username must be beetwen {min} and {max} characters long.")
 	private String username;
 	
-	@Column(nullable=false,name="password")
-//	@NotNull(message="Password must be provided")
-//	@Size(min=6,max=30, message= "password must be beetwen {min} and {max} characters long.")
-//	@JsonIgnore
+	
+	@NotNull(message = "Password must be included.")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,30}$", message = "Password must be at least 6 characters long and contain a lowercase, an upercase letter and a number")
+	@Size(min=6, max = 30, message= "Password must be beetwen {min} and {max} characters long.")
 	protected String password;
 	
 	private Long id;

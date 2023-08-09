@@ -12,4 +12,6 @@ public interface CookUserService {
 	
 	public CookUser deleteCook(Long id) throws RESTError;
 
+	public CookUser getByUsername(String username);
+
 }

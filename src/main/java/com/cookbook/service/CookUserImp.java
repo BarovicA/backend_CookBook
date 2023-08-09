@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cookbook.dto.CookUserDTO;
 import com.cookbook.entities.CookUser;
+import com.cookbook.entities.RegularUser;
 import com.cookbook.mappers.CookUserMapper;
 import com.cookbook.repositories.CookUserRepository;
 import com.cookbook.util.RESTError;
@@ -54,5 +55,10 @@ public class CookUserImp implements CookUserService {
 		return cookUserRepository.save(cookEntity);
 		
 	}
+	
+	@Override
+    public CookUser getByUsername(String username) {
+        return cookUserRepository.findByDeletedFalseAndUsernameIgnoreCaseContaining(username).orElse(null); 
 
+}
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.dto.CookUserDTO;
+import com.cookbook.entities.CookUser;
+import com.cookbook.entities.RegularUser;
 import com.cookbook.repositories.CookUserRepository;
 import com.cookbook.service.CookUserService;
 import com.cookbook.util.RESTError;
+import com.cookbook.validation.Validation;
 
 import jakarta.validation.Valid;
 
@@ -37,7 +41,7 @@ public class CookUserController {
 	public ResponseEntity<?> addCook(@Valid @RequestBody CookUserDTO cook,BindingResult result) throws RESTError  {
 		
 		if(result.hasErrors()) {
-			return new ResponseEntity<>(createErrorMessage(result),HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Validation.createErrorMessage(result),HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(cookUserService.addCook(cook), HttpStatus.OK);
 	}
@@ -65,5 +69,12 @@ public class CookUserController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
 	}
+		// Dobijanje kuvara po username
+				@GetMapping("/username/{username}")
+				public CookUser getCookUserByUsername(@PathVariable String username) {
+					return cookUserService.getByUsername(username);
+				}
+		
+		
+			}
 
-}
