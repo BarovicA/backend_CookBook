@@ -60,9 +60,12 @@ public class CookUserController {
 		
 		@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
 		@Secured("ADMIN_USER")
-		public ResponseEntity<?> removeCook(@PathVariable Long id) {
+		public ResponseEntity<?> deleteCook(@PathVariable Long id) {
+
 			try {
-				return ResponseEntity.status(HttpStatus.OK).body(cookUserService.deleteCook(id));
+				cookUserService.deleteCook(id);
+				return ResponseEntity.ok("Admin user deleted successfully");
+				//return ResponseEntity.status(HttpStatus.OK).body(cookUserService.deleteCook(id));
 			} catch (RESTError e) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
