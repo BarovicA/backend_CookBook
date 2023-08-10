@@ -2,6 +2,7 @@ package com.cookbook.service;
 
 import java.util.List;
 
+import com.cookbook.dto.RecipeDTO;
 import com.cookbook.entities.Recipe;
 
 public interface RecipeService {
@@ -12,4 +13,5 @@ public interface RecipeService {
     List<Recipe> getByName(String name);
     Recipe update(Long id, Recipe updatedRecipe);
     void delete(Long id);
+	RecipeDTO getByIdDto(long id);
 }
