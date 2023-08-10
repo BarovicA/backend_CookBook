@@ -54,6 +54,10 @@ public class UserService {
 		
 		throw new RESTError(1,"Wrong credentials");
 	}
+	
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username).get();
+	}
 }
 
 
