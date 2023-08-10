@@ -111,5 +111,3 @@ public class RegularUserServiceImpl implements RegularUserService {
 	
 	
 }
-		
-

@@ -45,7 +45,7 @@ public class Recipe {
 
 	@Column
 	@NotNull(message = "Expected yield must be included.")
-	private String expectedYield;
+	private Integer expectedYieldInGrams;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cook")
@@ -115,12 +115,13 @@ public class Recipe {
 		this.timeToPrepare = timeToPrepare;
 	}
 
-	public String getExpectedYield() {
-		return expectedYield;
+	
+	public Integer getExpectedYieldInGrams() {
+		return expectedYieldInGrams;
 	}
 
-	public void setExpectedYield(String expectedYield) {
-		this.expectedYield = expectedYield;
+	public void setExpectedYieldInGrams(Integer expectedYieldInGrams) {
+		this.expectedYieldInGrams = expectedYieldInGrams;
 	}
 
 	public List<IngridientRecipe> getIngridientRecipe() {
