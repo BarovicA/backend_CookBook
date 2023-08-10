@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import com.cookbook.service.CookUserService;
 import com.cookbook.util.RESTError;
 
 import jakarta.validation.Valid;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path = "/api/v1/cookUser")
 public class CookUserController {
@@ -64,7 +65,7 @@ public class CookUserController {
 
 			try {
 				cookUserService.deleteCook(id);
-				return ResponseEntity.ok("Admin user deleted successfully");
+				return ResponseEntity.ok(" user deleted successfully");
 				//return ResponseEntity.status(HttpStatus.OK).body(cookUserService.deleteCook(id));
 			} catch (RESTError e) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

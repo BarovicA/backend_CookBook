@@ -38,18 +38,22 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public AdminUserDTO modify(Long id, AdminUser admin) throws RESTError {
-		if(adminUserRepository.existsById(id)) {
-			AdminUser adminUser= new AdminUser();
-			adminUser.setFirstName(admin.getFirstName());
-			adminUser.setLastName(admin.getLastName());
-			adminUser.setUsername(admin.getUsername());
-			adminUser.setPassword(Encryption.getPassEncoded(admin.getPassword()));
-			
-			return adminMapper.toDto(adminUserRepository.save(adminUser));
-		}
-		throw new RESTError (1,"admin not exist");
-		
+	    Optional<AdminUser> existingAdminOptional = adminUserRepository.findById(id);
+	    
+	    if (existingAdminOptional.isPresent()) {
+	        AdminUser existingAdmin = existingAdminOptional.get();
+	        
+	        existingAdmin.setFirstName(admin.getFirstName());
+	        existingAdmin.setLastName(admin.getLastName());
+	        existingAdmin.setUsername(admin.getUsername());
+	        existingAdmin.setPassword(Encryption.getPassEncoded(admin.getPassword()));
+	        
+	        return adminMapper.toDto(adminUserRepository.save(existingAdmin));
+	    }
+	    
+	    throw new RESTError(1, "admin not exist");
 	}
+
 
 	@Override
 	public AdminUser delete(Long id) throws RESTError {

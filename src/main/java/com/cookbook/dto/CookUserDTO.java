@@ -14,7 +14,7 @@ public class CookUserDTO {
 	@Column(nullable=false,name="name_cook")
 	@NotNull(message="First name must be provided")
 	@Size(min=2,max=30, message= "First name must be beetwen {min} and {max} characters long.")
-	@JsonProperty("firstname")
+
 
 	private String firstName;
 	
@@ -22,7 +22,7 @@ public class CookUserDTO {
 	@Column(nullable=false,name="Last_name_Cook")
 	@NotNull(message="Last name must be provided")
 	@Size(min=2,max=30, message= "Last name must be beetwen {min} and {max} characters long.")
-	@JsonProperty("lastname")
+	
 	private String lastName;
 	
 	@Column(nullable=false, unique = true)
@@ -33,10 +33,10 @@ public class CookUserDTO {
 	@Column(nullable=false,name="password")
 	@NotNull(message="Password must be provided")
 	@Size(min=6,max=30, message= "password must be beetwen {min} and {max} characters long.")
-	@JsonIgnore
+
 	protected String password;
 	
-	private Long id;
+
 	
 	 public CookUserDTO() {
 	        super();
@@ -59,7 +59,7 @@ public class CookUserDTO {
 				this.lastName = cookUser.getLastName();
 				this.username = cookUser.getUsername();
 				this.password = cookUser.getPassword();
-				this.id= cookUser.getId();
+				
 	
 	}
 
@@ -94,12 +94,8 @@ public class CookUserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
+	
 	
 	
 	

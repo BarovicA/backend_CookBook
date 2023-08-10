@@ -48,10 +48,11 @@ public class AdminController {
 		return new ResponseEntity<>(adminService.modify(id, adminUser), HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id, BindingResult result)throws RESTError {
-		if (result.hasErrors()) {
-			return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
+	public ResponseEntity<?> delete(@PathVariable Long id)throws RESTError {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(adminService.delete(id));
+		} catch (RESTError e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return new ResponseEntity<>(adminService.delete(id), HttpStatus.OK);
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,12 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.dto.RegularUserDTO;
 import com.cookbook.entities.RegularUser;
+import com.cookbook.exceptions.ResourceNotFoundException;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.service.RegularUserService;
 import com.cookbook.validation.Validation;
 
 import jakarta.validation.Valid;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path = "/api/v1/regularuser")
 public class RegularUserController {
@@ -90,11 +92,15 @@ public class RegularUserController {
 		
 		// dodavanje u svoju listu recepata
 		@PostMapping("/{userId}/recipes/{recipeId}")
-		@Secured("REGULAR_USER")
+		@Secured({"REGULAR_USER","ADMIN_USER"})
 	    public ResponseEntity<?> addRecipeToUser(@PathVariable Long userId, @PathVariable Long recipeId) {
-	        regularUserService.addRecipeToUser(userId, recipeId);
+	        try {
+	        	regularUserService.addRecipeToUser(userId, recipeId);
 	        
 	        return new ResponseEntity<>("Recipe " + recipeId + " added for user: " + userId, HttpStatus.OK);
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	    }
 	}
 	 
