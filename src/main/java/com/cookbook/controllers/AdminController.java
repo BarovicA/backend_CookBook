@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cookbook.dto.AdminUserDTO;
+import com.cookbook.entities.AdminUser;
 import com.cookbook.service.AdminService;
+import com.cookbook.util.RESTError;
 
 import jakarta.validation.Valid;
 
@@ -32,11 +35,23 @@ public class AdminController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminUserDTO admin,BindingResult result)  {
-		System.out.println(admin.getFirstName()+" "+ admin.getLastName()+" "+  admin.getUsername()+" "+  admin.getPassword());
 		if(result.hasErrors()) {
 			return new ResponseEntity<>(createErrorMessage(result),HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(adminService.addAdmin(admin), HttpStatus.OK);
 	}
-
+	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+	public ResponseEntity<?> modifyAdminUser(@PathVariable Long id, @Valid @RequestBody AdminUser adminUser, BindingResult result)throws RESTError {
+		if (result.hasErrors()) {
+			return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(adminService.modify(id, adminUser), HttpStatus.OK);
+	}
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	public ResponseEntity<?> delete(@PathVariable Long id, BindingResult result)throws RESTError {
+		if (result.hasErrors()) {
+			return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(adminService.delete(id), HttpStatus.OK);
+	}
 }
