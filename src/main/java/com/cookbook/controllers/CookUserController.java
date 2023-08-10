@@ -1,5 +1,6 @@
 package com.cookbook.controllers;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.dto.CookUserDTO;
 import com.cookbook.entities.CookUser;
+import com.cookbook.entities.Recipe;
 import com.cookbook.entities.RegularUser;
 import com.cookbook.repositories.CookUserRepository;
 import com.cookbook.service.CookUserService;
@@ -75,6 +77,12 @@ public class CookUserController {
 					return cookUserService.getByUsername(username);
 				}
 		
+				
+				// Dobijanje svih kuvara
+				@GetMapping
+				public List<CookUser> getAllCook() {
+					return cookUserService.getAll();
+				}
 		
 			}
 

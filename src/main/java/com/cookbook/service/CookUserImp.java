@@ -1,5 +1,6 @@
 package com.cookbook.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cookbook.dto.CookUserDTO;
 import com.cookbook.entities.CookUser;
+import com.cookbook.entities.Recipe;
 import com.cookbook.entities.RegularUser;
 import com.cookbook.mappers.CookUserMapper;
 import com.cookbook.repositories.CookUserRepository;
@@ -61,4 +63,9 @@ public class CookUserImp implements CookUserService {
         return cookUserRepository.findByDeletedFalseAndUsernameIgnoreCaseContaining(username).orElse(null); 
 
 }
+	
+	@Override
+	public List<CookUser> getAll() {
+		 return cookUserRepository.findByDeletedFalse();
+    }
 }
