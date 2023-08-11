@@ -26,7 +26,10 @@ public class RegularUser extends User {
 	@OneToMany(mappedBy = "regUser", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<AllergenRegularUser> allergenRegularUser = new ArrayList<>();
 	
+	
+
 	public RegularUser() {
+		super();
 	}
 
 	public List<UserRegularRecipe> getUserRegularRecipe() {
