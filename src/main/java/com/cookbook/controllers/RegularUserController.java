@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cookbook.dto.RegularUserDTO;
 import com.cookbook.entities.RegularUser;
+import com.cookbook.entities.UserRegularRecipe;
 import com.cookbook.repositories.RegularUserRepository;
 import com.cookbook.service.RegularUserService;
 import com.cookbook.validation.Validation;
@@ -96,6 +97,22 @@ public class RegularUserController {
 	        
 	        return new ResponseEntity<>("Recipe " + recipeId + " added for user: " + userId, HttpStatus.OK);
 	    }
+		
+		//Prikaz ličnog kuvara
+		@GetMapping("/{userId}/recipes/")
+		@Secured("REGULAR_USER")
+		public ResponseEntity<List<UserRegularRecipe>> getMyRecipes(@PathVariable Long userId) {
+		    List<UserRegularRecipe> userRecipes = regularUserService.getRecipesToUser(userId);
+		    return new ResponseEntity<>(userRecipes, HttpStatus.OK);
+		}
+		
+		//Brisanje recepta iz ličnog kuvara
+		@DeleteMapping("/{userId}/recipes/{recipeId}")
+		@Secured("REGULAR_USER")
+		public ResponseEntity<?> deleteMyRecipe(@PathVariable Long userId, @PathVariable Long recipeId) {
+		    regularUserService.deleteRecipeForUser(userId, recipeId);
+		    return new ResponseEntity<>("Recipe " + recipeId + " deleted for user: " + userId, HttpStatus.OK);
+		}
 	}
 	 
 	

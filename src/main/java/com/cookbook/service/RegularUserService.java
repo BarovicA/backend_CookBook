@@ -22,4 +22,8 @@ public interface RegularUserService {
 
 	UserRegularRecipe addRecipeToUser(Long userId, Long recipeId);
 
+	List<UserRegularRecipe> getRecipesToUser(Long userId);
+
+	void deleteRecipeForUser(Long userId, Long recipeId);
+
 }
