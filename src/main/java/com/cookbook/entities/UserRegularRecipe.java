@@ -33,6 +33,7 @@ public class UserRegularRecipe {
 	@JoinColumn(name = "user")
 	private RegularUser user;
 	
+	
 	public UserRegularRecipe() {
 	}
 

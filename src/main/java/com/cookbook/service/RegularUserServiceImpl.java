@@ -1,6 +1,7 @@
 package com.cookbook.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ import com.cookbook.repositories.RoleRepository;
 import com.cookbook.repositories.UserRegularRecipeRepository;
 import com.cookbook.util.Encryption;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class RegularUserServiceImpl implements RegularUserService {
 
 	@Autowired
@@ -92,22 +96,50 @@ public class RegularUserServiceImpl implements RegularUserService {
 	}
 	
 	@Override
-	public UserRegularRecipe addRecipeToUser(Long userId, Long recipeId) {
-		
-        // Pronalazimo korisnika i recept u bazi podataka
-		RegularUser user = userRepository.findById(userId)
-			    .orElseThrow(() -> { throw new ResourceNotFoundException("User", "id ", userId); });
+    public UserRegularRecipe addRecipeToUser(Long userId, Long recipeId) {
+
+        RegularUser user = userRepository.findById(userId)
+            .orElseThrow(() -> { throw new ResourceNotFoundException("User", "id ", userId); });
         Recipe recipe = recipeRepository.findById(recipeId)
-        		.orElseThrow(() -> {throw new ResourceNotFoundException("Recipe", "id ", recipeId); });
-        
-        //  novi UserRegularRecipe
+            .orElseThrow(() -> {throw new ResourceNotFoundException("Recipe", "id ", recipeId); });
+
+        // Provera da li veza već postoji
+        UserRegularRecipe existingUserRecipe = userRegularRecipeRepository.findByUserAndRecipe(user, recipe);
+        if(existingUserRecipe != null) {
+            throw new IllegalArgumentException("The recipe is already added to the user's list.");
+        }
+
         UserRegularRecipe userRecipe = new UserRegularRecipe();
         userRecipe.setUser(user);
         userRecipe.setRecipe(recipe);
-        
-        
+
         return userRegularRecipeRepository.save(userRecipe);
     }
+
+    @Override
+    public List<UserRegularRecipe> getRecipesToUser(Long userId) {
+        RegularUser user = userRepository.findById(userId)
+            .orElseThrow(() -> { throw new ResourceNotFoundException("User", "id ", userId); });
+        return userRegularRecipeRepository.findAllByUser(user);
+    }
+
+	
+    @Override
+    public void deleteRecipeForUser(Long userId, Long recipeId) {
+        RegularUser user = userRepository.findById(userId)
+            .orElseThrow(() -> { throw new ResourceNotFoundException("User", "id ", userId); });
+        Recipe recipe = recipeRepository.findById(recipeId)
+            .orElseThrow(() -> {throw new ResourceNotFoundException("Recipe", "id ", recipeId); });
+
+        UserRegularRecipe userRecipe = userRegularRecipeRepository.findByUserAndRecipe(user, recipe);
+        if(userRecipe == null) {
+            throw new IllegalArgumentException("The recipe does not exist in the user's list.");
+        }
+
+        userRegularRecipeRepository.delete(userRecipe);
+    }
+	
+	
 	
 	
 }
