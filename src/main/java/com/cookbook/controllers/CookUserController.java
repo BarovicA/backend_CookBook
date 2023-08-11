@@ -83,6 +83,14 @@ public class CookUserController {
 				public List<CookUser> getAllCook() {
 					return cookUserService.getAll();
 				}
+				
+//				Dobijanje kuvara po id
 		
+				
+				@GetMapping("/{id}")
+                public CookUser getById(@PathVariable Long id) {
+                CookUser user = cookUserRepository.findById(id).get();
+                return user;
 			}
+}
 
